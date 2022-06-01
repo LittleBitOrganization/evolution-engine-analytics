@@ -5,11 +5,19 @@
 1. ##### Dlownload all those archives from [Google API](https://developers.google.com/unity/archive#external_dependency_manager_for_unity) in .tgz extention.
 
 [com.google.firebase.app](https://developers.google.com/unity/archive#firebase_app_core)
+
 [com.google.firebase.auth](https://developers.google.com/unity/archive#firebase_authentication)
+
 [com.google.firebase.storage](https://developers.google.com/unity/archive#cloud_storage_for_firebase)
+
 [com.google.firebase.analytics](https://developers.google.com/unity/archive#google_analytics_for_firebase)
 
+
+
+
 2. #### Create folder named *GooglePackages* in your project root folder, it should be next to the *Assets* folder
+
+
 
 
 3. #### Add those lines to your manifest file (it locates somwhere in root package folder).
@@ -27,6 +35,8 @@
   "com.dbrizov.naughtyattributes": "https://github.com/dbrizov/NaughtyAttributes.git#upm"
 }
 ```
+
+
 
 4. #### Add scope for gameanalitycs 
 ```json
@@ -47,7 +57,9 @@
     }
   ]
 ```
-5. #### Open Unity project and wait for assets importing :raised_hands:
+
+
+5. ## Open Unity project and wait for assets importing :raised_hands:
 
 
 
