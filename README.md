@@ -20,7 +20,7 @@
 
 
 
-3. #### Add those lines to your manifest file (it locates somwhere in root package folder).
+3. #### Add those lines to your manifest.json file (it locates somwhere in root package folder).
 
 ```json 
  "dependencies": {
@@ -38,7 +38,7 @@
 
 
 
-4. #### Add scope for gameanalitycs 
+4. #### Add scopedRegistries to your manifest.json for GameanAlitycs 
 ```json
 "scopedRegistries": [
     {
