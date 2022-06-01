@@ -8,6 +8,7 @@
 * [com.google.firebase.auth](https://developers.google.com/unity/archive#firebase_authentication)
 * [com.google.firebase.storage](https://developers.google.com/unity/archive#cloud_storage_for_firebase)
 * [com.google.firebase.analytics](https://developers.google.com/unity/archive#google_analytics_for_firebase)
+* [com.google.firebase.crashlytics](https://developers.google.com/unity/archive#firebase_crashlytics)
 
 2. #### Create folder named *GooglePackages* in your project root folder, it should be next to the *Assets* folder
 
