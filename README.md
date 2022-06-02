@@ -1,8 +1,25 @@
-# evolution-engine-analytics
+# Модуль аналитики
 
-## Installation
+Данный модуль предоставляет возможность легко интегрировать в проект аналитику.
 
-1. #### Dlownload all those archives from [Google API](https://developers.google.com/unity/archive#external_dependency_manager_for_unity) in .tgz extention.
+Поддерживаемые платформы: Android, iOS. Может работать в редакторе. 
+
+
+# Оглавление
+
+- [Зависимости и требования](#зависимости-и-требования)
+  * [Импорт](#импорт)
+- [Инстанцирование необходимых сервисов](#инстанцирование-необходимых-сервисов)
+- [Первичная настройка](#первичная-настройка)
+- [События](#события)
+
+## Зависимости и требования
+
+Минимальная версия Unity <b> 2021.1.6f1 </b>
+
+### Импорт
+
+1. #### загрузите все эти архивы с сайта [Google API](https://developers.google.com/unity/archive#external_dependency_manager_for_unity) в <b>.tgz</b> формате.
 
 * [com.google.firebase.app](https://developers.google.com/unity/archive#firebase_app_core)
 * [com.google.firebase.auth](https://developers.google.com/unity/archive#firebase_authentication)
@@ -10,9 +27,9 @@
 * [com.google.firebase.analytics](https://developers.google.com/unity/archive#google_analytics_for_firebase)
 * [com.google.firebase.crashlytics](https://developers.google.com/unity/archive#firebase_crashlytics)
 
-2. #### Create folder named *GooglePackages* in your project root folder, it should be next to the *Assets* folder and add this files in created folder.
+2. #### Создайте папку <b>GooglePackages</b> в корневой папке проекта *(в которой находится папка Assets)*.
 
-3. #### Add those lines to your manifest.json file (it locates somwhere in root package folder).
+3. #### Добавьте следующие зависимости в свой manifest.json file *(он находится в папке Package)*.
 
 ```json 
  "dependencies": {
@@ -28,9 +45,7 @@
 }
 ```
 
-
-
-4. #### Add scopedRegistries to your manifest.json for GameanAlitycs 
+4. #### Добавьте в scopedRegistries внутри этого-же manifest.json следующие скоупы.
 ```json
 "scopedRegistries": [
     {
@@ -49,16 +64,49 @@
     }
   ]
 ```
+5. #### Откройте Unity и дождитесь импорта зависимостей :raised_hands:
+
+## Инстанцирование необходимых сервисов
+</b> Пример инсталлера, если используется Zenject</b>.
+
+Инстанцирование сервисов без Zenject происходит аналогично. Главное не забыть создать необходимую реализацию ICreator (см. core-модуль).
+
+```c#
+public override void InstallBindings()
+{
+    Container
+        .Bind<EventsService>()
+        .AsSingle()
+        .NonLazy();         
+}  
+```
+## Первичная настройка
+
+- В начале следует создать конфиг файл 
 
 
-5. #### Open Unity project and wait for assets importing :raised_hands:
+![Alt text](https://github.com/LittleBitOrganization/documentation-resources/blob/master/evolution-engine-analytics/documentation-images/1.jpg)
+
+- Файл конфигурации отвечает за то, какие аналитики использовать в проекте. Данная настройка выставляется в созданном ScriptableObject'e по пути *Assets/Resources/Configs*
+
+![Alt text](https://github.com/LittleBitOrganization/documentation-resources/blob/master/evolution-engine-analytics/documentation-images/2.jpg)
 
 
+## События
 
+Всего имеется 4 вида событий, код которых расположен в своих каталогах по пути *Runtime/EventSystem/Events*.
 
+#### 1. EventAdImpression
+Событие для отслеживания дохода с рекламы
 
+#### 2. EventCurrency
+Событие которое отслеживает события на транзакциях
 
+#### 3. EventDesign
+Событие для различных игровых ситуаций
 
+#### 4. EventEcommerce
+Для отслеэивания игровых покупок
 
 
 
