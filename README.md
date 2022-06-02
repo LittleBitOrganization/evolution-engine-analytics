@@ -10,7 +10,7 @@
 * [com.google.firebase.analytics](https://developers.google.com/unity/archive#google_analytics_for_firebase)
 * [com.google.firebase.crashlytics](https://developers.google.com/unity/archive#firebase_crashlytics)
 
-2. #### Create folder named *GooglePackages* in your project root folder, it should be next to the *Assets* folder
+2. #### Create folder named *GooglePackages* in your project root folder, it should be next to the *Assets* folder and add this files in created folder.
 
 3. #### Add those lines to your manifest.json file (it locates somwhere in root package folder).
 
