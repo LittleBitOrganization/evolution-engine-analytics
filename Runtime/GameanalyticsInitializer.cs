@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace LittleBit.Modules.Analytics
 {
-    public class AnalyticsInitializer : MonoBehaviour
+    public class GameanalyticsInitializer : MonoBehaviour
     {
         private void Start()
         {

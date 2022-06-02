@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace LittleBit.Modules.Analytics
 {
-    public class CrashlyticsInitialization : MonoBehaviour
+    public class FirebaseInitializer : MonoBehaviour
     {
         void Start () {
             
