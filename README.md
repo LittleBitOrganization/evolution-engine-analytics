@@ -27,9 +27,12 @@
 * [com.google.firebase.analytics](https://developers.google.com/unity/archive#google_analytics_for_firebase)
 * [com.google.firebase.crashlytics](https://developers.google.com/unity/archive#firebase_crashlytics)
 
-2. #### Создайте папку <b>GooglePackages</b> в корневой папке проекта *(в которой находится папка Assets)*.
+2. #### Создайте папку <b>GooglePackages</b> в корневой папке проекта *(в которой находится папка Assets)* и переместите эти архивы туда.
 
-3. #### Добавьте следующие зависимости в свой manifest.json file *(он находится в папке Package)*.
+3. #### Если в проекте уже есть <b>ExternalDependencyManager</b>, то следует предварительно его выпилить.
+Это делается удалением папки *ExternalDependencyManager* в папке *Assets*.
+
+4. #### Добавьте следующие зависимости в свой manifest.json file *(он находится в папке Package)*.
 
 ```json 
  "dependencies": {
@@ -45,7 +48,7 @@
 }
 ```
 
-4. #### Добавьте в scopedRegistries внутри этого-же manifest.json следующие скоупы.
+5. #### Добавьте в scopedRegistries внутри этого-же manifest.json следующие скоупы.
 ```json
 "scopedRegistries": [
     {
@@ -64,7 +67,7 @@
     }
   ]
 ```
-5. #### Откройте Unity и дождитесь импорта зависимостей :raised_hands:
+6. #### Откройте Unity и дождитесь импорта зависимостей :raised_hands:
 
 ## Инстанцирование необходимых сервисов
 </b> Пример инсталлера, если используется Zenject</b>.
@@ -121,6 +124,73 @@ public override void InstallBindings()
 Для отслеживания игровых покупок
 
 
+## Методы EventsService
+- #### Метод для отправки информации о потраченных ресурсах
+```c# 
+SpendVirtualCurrency(DataEventCurrency dataEventCurrency, EventsServiceType flags = EventsServiceType.Everything) 
+```
+Пример использования
+```c#
+var eventData =
+new DataEventCurrency(command.GetResourceId().Replace("resources/", ""), command.GetValue(),
+transactionEventData.ItemType,
+                    transactionEventData.ItemId);
+Action logAction = command is RevenueCommand
+  ? () => _eventsService.EarnVirtualCurrency(eventData)
+  : () => _eventsService.SpendVirtualCurrency(eventData);
+```
+
+
+- #### Метод для отправки информации о полученных ресурсах
+```c# 
+EarnVirtualCurrency(DataEventCurrency dataEventCurrency, EventsServiceType flags = EventsServiceType.Everything)
+```
+Пример использования
+```c#
+var data = new DataEventCurrency(resource.Key.Replace("resources/", ""), resource.Value, "OnlineIncome", "all_islands");
+_eventsService.EarnVirtualCurrency(data);
+```
+
+
+- #### Метод для отправки информации о игровом событии
+```c#
+DesignEvent(DataEventDesign dataEventDesign, EventsServiceType flags = EventsServiceType.Everything) 
+```
+Пример использования
+```c#
+```
+
+- #### Метод для отправки информации о игровом событии с параметрами
+```c# 
+DesignEventWithParams(DataEventDesignWithParams dataEventDesignWithParams, EventsServiceType flags = EventsServiceType.Everything) 
+```
+Пример использования
+```c#
+private void LogEvent(QuestDescription questDescription)
+{
+  var questKeyParam = new EventParameter("quest_key", questDescription.Key);
+  _eventsService.DesignEventWithParams(new DataEventDesignWithParams("quest_completed",
+  questKeyParam + _paramsFactory.Create()));
+}
+```
+
+
+- #### Метод для отправки информации о просмотре рекламы
+```c# 
+AdRevenuePaidEvent(IDataEventAdImpression data) 
+```
+ Пример использования
+```c#
+public AnalyticsAdsImpression(EventsService eventsService, Ads.Ads ads)
+{
+  ads.OnAdRevenuePaidEvent += eventsService.AdRevenuePaidEvent;
+}
+```
+ 
+ 
+ 
+ 
+ 
 
 
 
