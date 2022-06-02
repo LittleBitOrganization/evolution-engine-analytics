@@ -69,7 +69,7 @@
 ## Инстанцирование необходимых сервисов
 </b> Пример инсталлера, если используется Zenject</b>.
 
-Инстанцирование сервисов без Zenject происходит аналогично. Главное не забыть создать необходимую реализацию ICreator (см. core-модуль).
+Инстанцирование сервисов без Zenject происходит аналогично.
 
 ```c#
 public override void InstallBindings()
@@ -77,7 +77,19 @@ public override void InstallBindings()
     Container
         .Bind<EventsService>()
         .AsSingle()
-        .NonLazy();         
+        .NonLazy(); 
+
+    Container
+        .Bind<AnalyticsInitializer>()
+        .FromNewComponentOnNewGameObject()
+        .AsSingle()
+        .NonLazy();
+
+    Container
+        .Bind<GameanalyticsInitializer>()
+        .FromNewComponentOnNewGameObject()
+        .AsSingle()
+        .NonLazy();
 }  
 ```
 ## Первичная настройка
@@ -106,7 +118,7 @@ public override void InstallBindings()
 Событие для различных игровых ситуаций
 
 #### 4. EventEcommerce
-Для отслеэивания игровых покупок
+Для отслеживания игровых покупок
 
 
 
