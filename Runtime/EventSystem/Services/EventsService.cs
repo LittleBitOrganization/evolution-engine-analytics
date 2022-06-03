@@ -72,8 +72,6 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
 
         public void EarnVirtualCurrency(DataEventCurrency dataEventCurrency, EventsServiceType flags = EventsServiceType.Everything)
         {
-            var abcd = FilterEventSystems(_analyticsCurrencies, flags);
-            
             foreach (var analyticsCurrency in FilterEventSystems(_analyticsCurrencies, flags))
             {
                 analyticsCurrency.EarnVirtualCurrency(new DataEventCurrency(dataEventCurrency.ResourceId,
