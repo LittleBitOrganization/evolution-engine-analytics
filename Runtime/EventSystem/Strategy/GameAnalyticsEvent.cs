@@ -2,12 +2,14 @@ using GameAnalyticsSDK;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventCurrency;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Data;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Events;
+using LittleBit.Modules.Analytics.EventSystem.Events.EventEncommerce;
 
 namespace LittleBit.Modules.Analytics.EventSystem.Strategy
 {
     public class GameEvent : 
         ICurrencyEvent<IDataEventCurrency>, 
-        IDesignEvent<IDataEventDesign>
+        IDesignEvent<IDataEventDesign>,
+        IEcommerceEvent<IDataEventEcommerce>
     {
         public void EarnVirtualCurrency(IDataEventCurrency dataEventCurrency)
         {
@@ -31,6 +33,11 @@ namespace LittleBit.Modules.Analytics.EventSystem.Strategy
         public void DesignEvent(DataEventDesign dataEventDesign)
         {
             GameAnalytics.NewDesignEvent(dataEventDesign.Label);
+        }
+
+        public void EcommercePurchase(IDataEventEcommerce data)
+        {
+            GameAnalytics.NewBusinessEvent(data.Currency, data.Amount, data.ItemType, data.ItemId, data.CartType);
         }
     }
 }

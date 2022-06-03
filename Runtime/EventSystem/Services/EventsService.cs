@@ -6,6 +6,7 @@ using LittleBit.Modules.Analytics.EventSystem.Events.EventAdImpression;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventCurrency;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Data;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Events;
+using LittleBit.Modules.Analytics.EventSystem.Events.EventEncommerce;
 using LittleBit.Modules.Analytics.EventSystem.Strategy;
 using UnityEngine;
 
@@ -17,6 +18,7 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
         private readonly List<IAdImpressionEvent<IDataEventAdImpression>> _analyticsAdImpression;
         private readonly List<IDesignEvent<IDataEventDesign>> _designEvents;
         private readonly List<IDesignEventWithParameters> _designEventsWithParameters;
+        private readonly List<IEcommerceEvent<IDataEventEcommerce>> _ecommerceEvents;
 
         private AnalyticsConfig _config;
 
@@ -24,7 +26,7 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
         {
             _analyticsAdImpression = new List<IAdImpressionEvent<IDataEventAdImpression>>()
             {
-                new FireBaseEvent()
+                new FireBaseEvent(),
             };
 
             _analyticsCurrencies = new List<ICurrencyEvent<IDataEventCurrency>>()
@@ -42,6 +44,11 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
             _designEventsWithParameters = new List<IDesignEventWithParameters>()
             {
                 new FireBaseEvent()
+            };
+
+            _ecommerceEvents = new List<IEcommerceEvent<IDataEventEcommerce>>()
+            {
+                new GameEvent()
             };
             
             LoadAnalyticsConfig();
@@ -131,6 +138,14 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
                     data.AdUnitName,
                     data.Currency,
                     data.Value));
+            }
+        }
+
+        public void EcommercePurchase(IDataEventEcommerce dataEventEcommerce)
+        {
+            foreach (var e in _ecommerceEvents)
+            {
+                e.EcommercePurchase(dataEventEcommerce);
             }
         }
     }

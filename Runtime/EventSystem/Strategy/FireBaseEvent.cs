@@ -67,6 +67,15 @@ namespace LittleBit.Modules.Analytics.EventSystem.Strategy
                 new Parameter(FirebaseAnalytics.ParameterAdUnitName, data.AdUnitName),
                 new Parameter(FirebaseAnalytics.ParameterCurrency, data.Currency),
                 new Parameter(FirebaseAnalytics.ParameterValue, data.Value));
+            
+            DesignEventWithParameters(new DataEventDesignWithParams("custom_ad_imp", new EventParameter[]
+            {
+                new EventParameter(FirebaseAnalytics.ParameterAdSource, data.AdSource),
+                new EventParameter(FirebaseAnalytics.ParameterAdFormat, data.AdFormat),
+                new EventParameter(FirebaseAnalytics.ParameterAdUnitName, data.AdUnitName),
+                new EventParameter(FirebaseAnalytics.ParameterCurrency, data.Currency),
+                new EventParameter(FirebaseAnalytics.ParameterValue, data.Value)
+            }));
         }
     }
 }
