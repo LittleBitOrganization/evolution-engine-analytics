@@ -158,6 +158,10 @@ DesignEvent(DataEventDesign dataEventDesign, EventsServiceType flags = EventsSer
 ```
 Пример использования
 ```c#
+private void SendEvent(string message)
+{
+  _eventsService.DesignEvent(new DataEventDesignWithParams(message));
+}
 ```
 
 - #### Метод для отправки информации о игровом событии с параметрами
