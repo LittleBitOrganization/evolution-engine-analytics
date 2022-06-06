@@ -83,7 +83,7 @@ public override void InstallBindings()
         .NonLazy(); 
 
     Container
-        .Bind<AnalyticsInitializer>()
+        .Bind<FirebaseInitializer>()
         .FromNewComponentOnNewGameObject()
         .AsSingle()
         .NonLazy();
