@@ -51,12 +51,7 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
                 new GameEvent()
             };
             
-            LoadAnalyticsConfig();
-        }
-
-        private void LoadAnalyticsConfig()
-        {
-            _config = Resources.Load<AnalyticsConfig>(Constants.AnalyticsConfigResourcesPath);
+            _config = new AnalyticsConfigFactory().Create();
         }
 
         public void SpendVirtualCurrency(DataEventCurrency dataEventCurrency, EventsServiceType flags = EventsServiceType.Everything)
