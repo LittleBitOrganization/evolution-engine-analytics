@@ -6,9 +6,9 @@ namespace LittleBit.Modules.Analytics.Initializers
     {
         public void Start()
         {
-            new FirebaseInitializer();
-            new AdjustInitializer();
-            new GameanalyticsInitializer();
+            (new FirebaseInitializer()).Start();
+            (new AdjustInitializer(gameObject)).Start();
+            (new GameanalyticsInitializer()).Start();
         }
     }
 }
