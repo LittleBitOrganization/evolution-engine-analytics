@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace LittleBit.Modules.Analytics.Initializers
 {
-    public class FirebaseInitializer : MonoBehaviour
+    public class FirebaseInitializer : IInitializer
     {
-        private void Start ()
+        public void Start ()
         {
             var analyticsConfig = new AnalyticsConfigFactory().Create();
             if (analyticsConfig.IsEnableService(EventsServiceType.Firebase))

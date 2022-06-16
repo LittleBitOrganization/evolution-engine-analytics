@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using GameAnalyticsSDK;
+using LittleBit.Modules.Analytics.EventSystem.Events.EventAdImpression;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventCurrency;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Data;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Events;
@@ -9,7 +11,8 @@ namespace LittleBit.Modules.Analytics.EventSystem.Strategy
     public class GameEvent : 
         ICurrencyEvent<IDataEventCurrency>, 
         IDesignEvent<IDataEventDesign>,
-        IEcommerceEvent<IDataEventEcommerce>
+        IEcommerceEvent<IDataEventEcommerce>,
+        IAdImpressionEvent<IDataEventAdImpression>
     {
         public void EarnVirtualCurrency(IDataEventCurrency dataEventCurrency)
         {
@@ -38,6 +41,15 @@ namespace LittleBit.Modules.Analytics.EventSystem.Strategy
         public void EcommercePurchase(IDataEventEcommerce data)
         {
             GameAnalytics.NewBusinessEvent(data.Currency, data.Amount, data.ItemType, data.ItemId, data.CartType);
+        }
+
+        public void AdRevenuePaidEvent(IDataEventAdImpression data)
+        {
+            Dictionary<string, object> fields = new Dictionary<string, object>();
+            fields.Add("Currency", data.Currency);
+            fields.Add("Value", data.Value);
+            GameAnalytics.NewAdEvent(GAAdAction.RewardReceived, GAAdType.Undefined,data.AdSource, data.AdUnitName,
+                            fields);
         }
     }
 }

@@ -43,7 +43,7 @@
   "com.google.firebase.storage": "file:../GooglePackages/com.google.firebase.storage-9.0.0.tgz",
   "com.google.firebase.analytics": "file:../GooglePackages/com.google.firebase.analytics-9.0.0.tgz",
   "com.google.firebase.crashlytics": "file:../GooglePackages/com.google.firebase.crashlytics-9.0.0.tgz",
-  "com.littlebitgames.analytics": "https://github.com/LittleBitOrganization/evolution-engine-analytics.git#1.0.2",
+  "com.littlebitgames.analytics": "https://github.com/LittleBitOrganization/evolution-engine-analytics.git#1.0.3",
   "com.dbrizov.naughtyattributes": "https://github.com/dbrizov/NaughtyAttributes.git#upm"
 }
 ```
@@ -84,13 +84,7 @@ public override void InstallBindings()
         .NonLazy(); 
 
     Container
-        .Bind<FirebaseInitializer>()
-        .FromNewComponentOnNewGameObject()
-        .AsSingle()
-        .NonLazy();
-
-    Container
-        .Bind<GameanalyticsInitializer>()
+        .Bind<AnalyticsInitializer>()
         .FromNewComponentOnNewGameObject()
         .AsSingle()
         .NonLazy();

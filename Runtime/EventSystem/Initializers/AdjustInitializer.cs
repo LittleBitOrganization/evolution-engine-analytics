@@ -1,4 +1,5 @@
-﻿using com.adjust.sdk;
+﻿using System;
+using com.adjust.sdk;
 using LittleBit.Modules.Analytics.EventSystem.Configs;
 using LittleBit.Modules.Analytics.EventSystem.Services;
 using UnityEngine;

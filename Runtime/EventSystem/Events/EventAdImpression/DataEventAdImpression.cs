@@ -2,8 +2,9 @@ namespace LittleBit.Modules.Analytics.EventSystem.Events.EventAdImpression
 {
     public class DataEventAdImpression : IDataEventAdImpression
     {
-        public DataEventAdImpression(string adSource, string adFormat, string adUnitName, string currency, double value)
+        public DataEventAdImpression(SdkSource sdkSource, string adSource, string adFormat, string adUnitName, string currency, double value)
         {
+            SdkSource = sdkSource;
             AdSource = adSource;
             AdFormat = adFormat;
             AdUnitName = adUnitName;
@@ -11,6 +12,7 @@ namespace LittleBit.Modules.Analytics.EventSystem.Events.EventAdImpression
             Value = value;
         }
 
+        public SdkSource SdkSource { get; }
         public string AdSource { get; }
         public string AdFormat { get; }
         public string AdUnitName { get; }

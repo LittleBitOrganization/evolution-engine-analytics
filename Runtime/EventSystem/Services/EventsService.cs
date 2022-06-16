@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using com.adjust.sdk;
 using LittleBit.Modules.Analytics.EventSystem.Configs;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventAdImpression;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventCurrency;
@@ -27,6 +28,8 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
             _analyticsAdImpression = new List<IAdImpressionEvent<IDataEventAdImpression>>()
             {
                 new FireBaseEvent(),
+                new GameEvent(),
+                new AdjustSystemEvent()
             };
 
             _analyticsCurrencies = new List<ICurrencyEvent<IDataEventCurrency>>()
@@ -117,20 +120,16 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
 
             if (!mask.HasFlag(EventsServiceType.Firebase)) clone.RemoveAll(s => s is FireBaseEvent);
             if (!mask.HasFlag(EventsServiceType.GA)) clone.RemoveAll(s => s is GameEvent);
+            if (!mask.HasFlag(EventsServiceType.Adjust)) clone.RemoveAll(s => s is AdjustSystemEvent);
 
             return clone;
         }
 
-        public void AdRevenuePaidEvent(IDataEventAdImpression data)
+        public void AdRevenuePaidEvent(IDataEventAdImpression data,EventsServiceType flags = EventsServiceType.Everything)
         {
-            foreach (var analytics in _analyticsAdImpression)
+            foreach (var analytics in FilterEventSystems(_analyticsAdImpression,flags))
             {
-                analytics.AdRevenuePaidEvent(new DataEventAdImpression(
-                    data.AdSource,
-                    data.AdFormat,
-                    data.AdUnitName,
-                    data.Currency,
-                    data.Value));
+                analytics.AdRevenuePaidEvent(data);
             }
         }
 
