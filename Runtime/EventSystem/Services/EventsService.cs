@@ -29,7 +29,7 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
             {
                 new FireBaseEvent(),
                 new GameEvent(),
-                new AdjustSystemEvent()
+                new AdjustSystemEvent(_config.AdjustSettings)
             };
 
             _analyticsCurrencies = new List<ICurrencyEvent<IDataEventCurrency>>()
@@ -51,13 +51,15 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
 
             _ecommerceEvents = new List<IEcommerceEvent<IDataEventEcommerce>>()
             {
-                new GameEvent()
+                new GameEvent(),
+                new AdjustSystemEvent(_config.AdjustSettings)
             };
-            
+
             _config = new AnalyticsConfigFactory().Create();
         }
 
-        public void SpendVirtualCurrency(DataEventCurrency dataEventCurrency, EventsServiceType flags = EventsServiceType.Everything)
+        public void SpendVirtualCurrency(DataEventCurrency dataEventCurrency,
+            EventsServiceType flags = EventsServiceType.Everything)
         {
             foreach (var analyticsCurrency in FilterEventSystems(_analyticsCurrencies, flags))
             {
@@ -68,7 +70,8 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
             }
         }
 
-        public void EarnVirtualCurrency(DataEventCurrency dataEventCurrency, EventsServiceType flags = EventsServiceType.Everything)
+        public void EarnVirtualCurrency(DataEventCurrency dataEventCurrency,
+            EventsServiceType flags = EventsServiceType.Everything)
         {
             foreach (var analyticsCurrency in FilterEventSystems(_analyticsCurrencies, flags))
             {
@@ -87,7 +90,8 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
             }
         }
 
-        private void DesignEvent(DataEventDesign dataEventDesign, List<Type> excludeTypesEventServices, EventsServiceType flags)
+        private void DesignEvent(DataEventDesign dataEventDesign, List<Type> excludeTypesEventServices,
+            EventsServiceType flags)
         {
             foreach (var eventSystem in FilterEventSystems(_designEvents, flags))
             {
@@ -98,10 +102,11 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
             }
         }
 
-        public void DesignEventWithParams(DataEventDesignWithParams dataEventDesignWithParams, EventsServiceType flags = EventsServiceType.Everything)
+        public void DesignEventWithParams(DataEventDesignWithParams dataEventDesignWithParams,
+            EventsServiceType flags = EventsServiceType.Everything)
         {
             var listExcludeEventServices = new List<Type>();
-            
+
             foreach (var eventSystem in FilterEventSystems(_designEventsWithParameters, flags))
             {
                 eventSystem.DesignEventWithParameters(dataEventDesignWithParams);
@@ -115,7 +120,7 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
         private List<T> FilterEventSystems<T>(List<T> systems, EventsServiceType flags = EventsServiceType.Everything)
         {
             var mask = _config.EnabledServices & flags;
-            
+
             var clone = systems.ToList();
 
             if (!mask.HasFlag(EventsServiceType.Firebase)) clone.RemoveAll(s => s is FireBaseEvent);
@@ -125,9 +130,10 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
             return clone;
         }
 
-        public void AdRevenuePaidEvent(IDataEventAdImpression data,EventsServiceType flags = EventsServiceType.Everything)
+        public void AdRevenuePaidEvent(IDataEventAdImpression data,
+            EventsServiceType flags = EventsServiceType.Everything)
         {
-            foreach (var analytics in FilterEventSystems(_analyticsAdImpression,flags))
+            foreach (var analytics in FilterEventSystems(_analyticsAdImpression, flags))
             {
                 analytics.AdRevenuePaidEvent(data);
             }

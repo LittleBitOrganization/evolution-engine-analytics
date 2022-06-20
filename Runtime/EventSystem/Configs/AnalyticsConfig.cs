@@ -15,6 +15,8 @@ namespace LittleBit.Modules.Analytics.EventSystem.Configs
         
         public EventsServiceType EnabledServices => enabledServices;
 
+
+        public AdjustSettings AdjustSettings => _adjustSettings;
         public AdjustConfig AdjustConfig
         {
             get
@@ -42,11 +44,13 @@ namespace LittleBit.Modules.Analytics.EventSystem.Configs
         [SerializeField] private AdjustAppSecret _adjustAppSecret;
         [SerializeField] private bool _eventBuffering = false;
         [SerializeField] private bool _sendInBackground = false;
+        [SerializeField] private string _purchaseEventToken;
         public string AdjustAppToken => _adjustAppToken;
         public AdjustEnvironment AdjustEnvironment => _adjustEnvironment;
         public AdjustAppSecret AdjustAppSecret => _adjustAppSecret;
         public bool EventBuffering => _eventBuffering;
         public bool SendInBackground => _sendInBackground;
+        public string PurchaseEventToken => _purchaseEventToken;
 
         public AdjustConfig Create()
         {
