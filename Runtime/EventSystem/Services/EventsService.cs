@@ -25,6 +25,8 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
 
         public EventsService()
         {
+            _config = new AnalyticsConfigFactory().Create();
+
             _analyticsAdImpression = new List<IAdImpressionEvent<IDataEventAdImpression>>()
             {
                 new FireBaseEvent(),
@@ -54,8 +56,6 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
                 new GameEvent(),
                 new AdjustSystemEvent(_config.AdjustSettings)
             };
-
-            _config = new AnalyticsConfigFactory().Create();
         }
 
         public void SpendVirtualCurrency(DataEventCurrency dataEventCurrency,
