@@ -40,7 +40,7 @@ namespace LittleBit.Modules.Analytics.EventSystem.Strategy
 
         public void EcommercePurchase(IDataEventEcommerce data)
         {
-            GameAnalytics.NewBusinessEvent(data.Currency, data.Amount, data.ItemType, data.ItemId, data.CartType);
+            GameAnalytics.NewBusinessEvent(data.Currency,(int) (data.Amount * 100), data.ItemType, data.ItemId, data.CartType);
         }
 
         public void AdRevenuePaidEvent(IDataEventAdImpression data)
