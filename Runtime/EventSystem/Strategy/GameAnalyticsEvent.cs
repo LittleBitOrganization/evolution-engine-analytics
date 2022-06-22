@@ -1,6 +1,6 @@
 using System.Collections.Generic;
+using Events;
 using GameAnalyticsSDK;
-using LittleBit.Modules.Analytics.EventSystem.Events.EventAdImpression;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventCurrency;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Data;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Events;

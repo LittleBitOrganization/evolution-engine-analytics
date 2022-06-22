@@ -1,6 +1,6 @@
 ﻿using com.adjust.sdk;
+using Events;
 using LittleBit.Modules.Analytics.EventSystem.Configs;
-using LittleBit.Modules.Analytics.EventSystem.Events.EventAdImpression;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventEncommerce;
 
 namespace LittleBit.Modules.Analytics.EventSystem.Strategy

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using com.adjust.sdk;
+using Events;
 using LittleBit.Modules.Analytics.EventSystem.Configs;
-using LittleBit.Modules.Analytics.EventSystem.Events.EventAdImpression;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventCurrency;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Data;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Events;
