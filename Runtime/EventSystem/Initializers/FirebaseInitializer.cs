@@ -1,5 +1,5 @@
+using Events;
 using Firebase;
-using LittleBit.Modules.Analytics.EventSystem.Configs;
 using LittleBit.Modules.Analytics.EventSystem.Services;
 using UnityEngine;
 

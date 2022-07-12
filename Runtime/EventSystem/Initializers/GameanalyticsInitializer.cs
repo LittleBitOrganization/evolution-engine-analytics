@@ -1,7 +1,6 @@
+using Events;
 using GameAnalyticsSDK;
-using LittleBit.Modules.Analytics.EventSystem.Configs;
 using LittleBit.Modules.Analytics.EventSystem.Services;
-using UnityEngine;
 
 namespace LittleBit.Modules.Analytics.Initializers
 {

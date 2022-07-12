@@ -9,11 +9,10 @@ using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Data;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Events;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventEncommerce;
 using LittleBit.Modules.Analytics.EventSystem.Strategy;
-using UnityEngine;
 
 namespace LittleBit.Modules.Analytics.EventSystem.Services
 {
-    public class EventsService
+    public class EventsService : IEventsService, IAdsEventService
     {
         private readonly List<ICurrencyEvent<IDataEventCurrency>> _analyticsCurrencies;
         private readonly List<IAdImpressionEvent<IDataEventAdImpression>> _analyticsAdImpression;
@@ -39,7 +38,7 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
                 new GameEvent(),
                 new FireBaseEvent()
             };
-
+            
             _designEvents = new List<IDesignEvent<IDataEventDesign>>()
             {
                 new GameEvent(),

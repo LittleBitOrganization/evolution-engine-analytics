@@ -1,4 +1,4 @@
-﻿namespace LittleBit.Modules.Analytics.EventSystem.Events.EventCurrency
+namespace LittleBit.Modules.Analytics.EventSystem.Events.EventCurrency
 {
     public interface IDataEventCurrency
     {
