@@ -79,7 +79,7 @@
 public override void InstallBindings()
 {
     Container
-        .Bind<EventsService>()
+        .BindInterfacesAndSeltTo<EventsService>()
         .AsSingle()
         .NonLazy(); 
 
