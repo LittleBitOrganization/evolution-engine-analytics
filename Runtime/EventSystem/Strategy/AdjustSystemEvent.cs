@@ -1,7 +1,7 @@
 ﻿using com.adjust.sdk;
-using Events;
 using LittleBit.Modules.Analytics.EventSystem.Configs;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventEncommerce;
+using LittleBitGames.Environment.Events;
 
 namespace LittleBit.Modules.Analytics.EventSystem.Strategy
 {

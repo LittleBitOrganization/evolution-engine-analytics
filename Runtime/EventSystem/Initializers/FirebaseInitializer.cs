@@ -1,6 +1,7 @@
-using Events;
+using System;
 using Firebase;
 using LittleBit.Modules.Analytics.EventSystem.Services;
+using LittleBitGames.Environment.Events;
 using UnityEngine;
 
 namespace LittleBit.Modules.Analytics.Initializers
@@ -27,7 +28,7 @@ namespace LittleBit.Modules.Analytics.Initializers
                     }
                     else
                     {
-                        Debug.LogError(System.String.Format(
+                        Debug.LogError(String.Format(
                             "Could not resolve all Firebase dependencies: {0}", dependencyStatus));
                         // Firebase Unity SDK is not safe to use here.
                     }

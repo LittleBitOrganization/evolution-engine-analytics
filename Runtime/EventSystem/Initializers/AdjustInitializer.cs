@@ -1,7 +1,6 @@
 ﻿using com.adjust.sdk;
-using Events;
-using LittleBit.Modules.Analytics.EventSystem.Configs;
 using LittleBit.Modules.Analytics.EventSystem.Services;
+using LittleBitGames.Environment.Events;
 using UnityEngine;
 
 namespace LittleBit.Modules.Analytics.Initializers

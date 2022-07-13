@@ -1,6 +1,6 @@
 using System;
 using com.adjust.sdk;
-using Events;
+using LittleBitGames.Environment.Events;
 using NaughtyAttributes;
 using UnityEngine;
 

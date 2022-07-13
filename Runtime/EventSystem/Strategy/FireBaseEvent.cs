@@ -1,9 +1,9 @@
-using Events;
 using Firebase.Analytics;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventCurrency;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Data;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Events;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Parameters;
+using LittleBitGames.Environment.Events;
 
 namespace LittleBit.Modules.Analytics.EventSystem.Strategy
 {
