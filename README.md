@@ -36,6 +36,7 @@
 
 ```json 
  "dependencies": {
+  "com.littlebitgames.environmentcore": "https://github.com/LittleBitOrganization/evolution-engine-environment-core-module.git#",
   "com.gameanalytics.sdk": "7.3.20",
   "com.google.external-dependency-manager": "https://github.com/LittleBitOrganization/evolution-engine-google-version-handler.git#1.2.171",
   "com.google.firebase.app": "file:../GooglePackages/com.google.firebase.app-9.0.0.tgz",
