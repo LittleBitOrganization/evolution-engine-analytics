@@ -8,7 +8,6 @@ namespace LittleBit.Modules.Analytics.EventSystem.Configs
 {
     public class AnalyticsConfig : ScriptableObject
     {
-        
         [SerializeField, EnumFlags] private EventsServiceType enabledServices = EventsServiceType.Everything;
 
         [SerializeField, ShowIf(nameof(IsEnableAdjust))] private AdjustSettings _adjustSettings;
@@ -46,18 +45,21 @@ namespace LittleBit.Modules.Analytics.EventSystem.Configs
         [SerializeField] private bool _eventBuffering = false;
         [SerializeField] private bool _sendInBackground = false;
         [SerializeField] private string _purchaseEventToken;
+        [SerializeField] private AdjustLogLevel _logLevel;
         public string AdjustAppToken => _adjustAppToken;
         public AdjustEnvironment AdjustEnvironment => _adjustEnvironment;
         public AdjustAppSecret AdjustAppSecret => _adjustAppSecret;
         public bool EventBuffering => _eventBuffering;
         public bool SendInBackground => _sendInBackground;
         public string PurchaseEventToken => _purchaseEventToken;
+        public AdjustLogLevel LogLevel => _logLevel;
 
         public AdjustConfig Create()
         {
             var adjustConfig = new AdjustConfig(AdjustAppToken, AdjustEnvironment);
             adjustConfig.setSendInBackground(SendInBackground);
             adjustConfig.setEventBufferingEnabled(EventBuffering);
+            adjustConfig.logLevel = _logLevel;
             adjustConfig.setAppSecret(
                 AdjustAppSecret.SecretId,
                 AdjustAppSecret.Info1,
