@@ -45,6 +45,7 @@ namespace LittleBit.Modules.Analytics.EventSystem.Configs
         [SerializeField] private bool _eventBuffering = false;
         [SerializeField] private bool _sendInBackground = false;
         [SerializeField] private string _purchaseEventToken;
+        [SerializeField] private AdjustLogLevel _logLevel;
         public string AdjustAppToken => _adjustAppToken;
         public AdjustEnvironment AdjustEnvironment => _adjustEnvironment;
         public AdjustAppSecret AdjustAppSecret => _adjustAppSecret;
@@ -52,11 +53,14 @@ namespace LittleBit.Modules.Analytics.EventSystem.Configs
         public bool SendInBackground => _sendInBackground;
         public string PurchaseEventToken => _purchaseEventToken;
 
+        public AdjustLogLevel LogLevel => _logLevel;
+
         public AdjustConfig Create()
         {
             var adjustConfig = new AdjustConfig(AdjustAppToken, AdjustEnvironment);
             adjustConfig.setSendInBackground(SendInBackground);
             adjustConfig.setEventBufferingEnabled(EventBuffering);
+            adjustConfig.setLogLevel(LogLevel);
             adjustConfig.setAppSecret(
                 AdjustAppSecret.SecretId,
                 AdjustAppSecret.Info1,
