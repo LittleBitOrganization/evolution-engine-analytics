@@ -54,8 +54,6 @@ namespace LittleBit.Modules.Analytics.EventSystem.Configs
         public string PurchaseEventToken => _purchaseEventToken;
         public AdjustLogLevel LogLevel => _logLevel;
 
-        public AdjustLogLevel LogLevel => _logLevel;
-
         public AdjustConfig Create()
         {
             var adjustConfig = new AdjustConfig(AdjustAppToken, AdjustEnvironment);

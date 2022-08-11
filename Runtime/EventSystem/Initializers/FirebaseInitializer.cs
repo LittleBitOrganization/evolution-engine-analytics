@@ -8,7 +8,9 @@ namespace LittleBit.Modules.Analytics.Initializers
 {
     public class FirebaseInitializer : IInitializer
     {
-        public void Start ()
+        public event Action<bool> OnFirebaseInit;
+        
+        public void Start()
         {
             var analyticsConfig = new AnalyticsConfigFactory().Create();
             if (analyticsConfig.IsEnableService(EventsServiceType.Firebase))
@@ -25,14 +27,17 @@ namespace LittleBit.Modules.Analytics.Initializers
                         FirebaseApp app = FirebaseApp.DefaultInstance;
                         FirebaseApp.LogLevel = LogLevel.Debug;
                         // Set a flag here for indicating that your project is ready to use Firebase.
+                        OnFirebaseInit?.Invoke(true);
                     }
                     else
                     {
+                        OnFirebaseInit?.Invoke(false);
                         Debug.LogError(String.Format(
                             "Could not resolve all Firebase dependencies: {0}", dependencyStatus));
                         // Firebase Unity SDK is not safe to use here.
                     }
                 });
+                
             }
         }
     }
