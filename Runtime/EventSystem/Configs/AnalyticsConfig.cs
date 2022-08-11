@@ -54,12 +54,14 @@ namespace LittleBit.Modules.Analytics.EventSystem.Configs
         public string PurchaseEventToken => _purchaseEventToken;
         public AdjustLogLevel LogLevel => _logLevel;
 
+        public AdjustLogLevel LogLevel => _logLevel;
+
         public AdjustConfig Create()
         {
             var adjustConfig = new AdjustConfig(AdjustAppToken, AdjustEnvironment);
             adjustConfig.setSendInBackground(SendInBackground);
             adjustConfig.setEventBufferingEnabled(EventBuffering);
-            adjustConfig.logLevel = _logLevel;
+            adjustConfig.setLogLevel(LogLevel);
             adjustConfig.setAppSecret(
                 AdjustAppSecret.SecretId,
                 AdjustAppSecret.Info1,
