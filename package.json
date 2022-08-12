@@ -1,7 +1,7 @@
 {
   "name": "com.littlebitgames.analytics",
   "displayName": "Analytics module",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "unity": "2021.1",
   "unityRelease": "6f1",
   "category": "Module",
