@@ -1,0 +1,16 @@
+{
+    "name": "LittleBitGames.RemoteConfig",
+    "rootNamespace": "",
+    "references": [
+        "GUID:e6f58018581a63740851da0e5d79ae80"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
