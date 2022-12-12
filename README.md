@@ -26,6 +26,7 @@
 * [com.google.firebase.storage](https://developers.google.com/unity/archive#cloud_storage_for_firebase)
 * [com.google.firebase.analytics](https://developers.google.com/unity/archive#google_analytics_for_firebase)
 * [com.google.firebase.crashlytics](https://developers.google.com/unity/archive#firebase_crashlytics)
+* [com.google.firebase.remote-config](https://developers.google.com/unity/archive#firebase_remote_config)
 
 2. #### Создайте папку <b>GooglePackages</b> в корневой папке проекта *(в которой находится папка Assets)* и переместите эти архивы туда.
 
@@ -44,6 +45,7 @@
   "com.google.firebase.storage": "file:../GooglePackages/com.google.firebase.storage-9.0.0.tgz",
   "com.google.firebase.analytics": "file:../GooglePackages/com.google.firebase.analytics-9.0.0.tgz",
   "com.google.firebase.crashlytics": "file:../GooglePackages/com.google.firebase.crashlytics-9.0.0.tgz",
+  "com.google.firebase.remote-config" : "file:../GooglePackages/com.google.firebase.remote-config-9.0.0.tgz",
   "com.littlebitgames.analytics": "https://github.com/LittleBitOrganization/evolution-engine-analytics.git",
   "com.dbrizov.naughtyattributes": "https://github.com/dbrizov/NaughtyAttributes.git#upm"
 }
