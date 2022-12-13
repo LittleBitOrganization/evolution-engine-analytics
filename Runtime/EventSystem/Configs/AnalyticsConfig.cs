@@ -54,6 +54,8 @@ namespace LittleBit.Modules.Analytics.EventSystem.Configs
         public string PurchaseEventToken => _purchaseEventToken;
         public AdjustLogLevel LogLevel => _logLevel;
 
+        [field: SerializeField] public TokenRecord[] Tokens { get; private set; }
+
         public AdjustConfig Create()
         {
             var adjustConfig = new AdjustConfig(AdjustAppToken, AdjustEnvironment);
@@ -67,6 +69,13 @@ namespace LittleBit.Modules.Analytics.EventSystem.Configs
                 AdjustAppSecret.Info3,
                 AdjustAppSecret.Info4);
             return adjustConfig;
+        }
+
+        [Serializable]
+        public struct TokenRecord
+        {
+            [field: SerializeField] public string EventLabel { get; private set; }
+            [field: SerializeField] public string Token { get; private set; }
         }
         
     }

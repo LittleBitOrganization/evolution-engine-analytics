@@ -44,6 +44,7 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
             _designEvents = new List<IDesignEvent<IDataEventDesign>>()
             {
                 new GameEvent(),
+                new AdjustSystemEvent(_config.AdjustSettings),
                 new FireBaseEvent()
             };
 

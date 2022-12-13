@@ -1,20 +1,27 @@
-﻿using com.adjust.sdk;
+﻿using System.Linq;
+using com.adjust.sdk;
 using LittleBit.Modules.Analytics.EventSystem.Configs;
+using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Data;
+using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Events;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventEncommerce;
 using LittleBitGames.Environment.Events;
 
 namespace LittleBit.Modules.Analytics.EventSystem.Strategy
 {
     public class AdjustSystemEvent : IAdImpressionEvent<IDataEventAdImpression>, 
-        IEcommerceEvent<IDataEventEcommerce>
+        IEcommerceEvent<IDataEventEcommerce>,
+        IDesignEvent<IDataEventDesign>
     {
-        private string _purchaseEventToken;
+        private readonly AdjustSettings _adjustSettings;
 
-        public AdjustSystemEvent(AdjustSettings adjustSettings)
+        public AdjustSystemEvent(AdjustSettings adjustSettings) => _adjustSettings = adjustSettings;
+
+        public void DesignEvent(DataEventDesign data)
         {
-            _purchaseEventToken = adjustSettings.PurchaseEventToken;
+            var eventToken = _adjustSettings.Tokens.FirstOrDefault(t => t.EventLabel == data.Label).Token;
+            
+            if (!string.IsNullOrEmpty(eventToken)) Adjust.trackEvent(new AdjustEvent(eventToken));
         }
-        
         public void AdRevenuePaidEvent(IDataEventAdImpression data)
         {
             AdjustAdRevenue adjustAdRevenue = new AdjustAdRevenue(data.SdkSource.Source);
@@ -28,7 +35,7 @@ namespace LittleBit.Modules.Analytics.EventSystem.Strategy
 
         public void EcommercePurchase(IDataEventEcommerce data)
         {
-            AdjustEvent adjustEvent = new AdjustEvent(_purchaseEventToken);
+            AdjustEvent adjustEvent = new AdjustEvent(_adjustSettings.PurchaseEventToken);
             
             adjustEvent.currency = data.Currency;
             adjustEvent.revenue = data.Amount;
