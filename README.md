@@ -40,12 +40,12 @@
   "com.littlebitgames.environmentcore": "https://github.com/LittleBitOrganization/evolution-engine-environment-core-module.git#",
   "com.gameanalytics.sdk": "7.3.20",
   "com.google.external-dependency-manager": "https://github.com/LittleBitOrganization/evolution-engine-google-version-handler.git#1.2.171",
-  "com.google.firebase.app": "file:../GooglePackages/com.google.firebase.app-9.0.0.tgz",
-  "com.google.firebase.auth": "file:../GooglePackages/com.google.firebase.auth-9.0.0.tgz",
-  "com.google.firebase.storage": "file:../GooglePackages/com.google.firebase.storage-9.0.0.tgz",
-  "com.google.firebase.analytics": "file:../GooglePackages/com.google.firebase.analytics-9.0.0.tgz",
-  "com.google.firebase.crashlytics": "file:../GooglePackages/com.google.firebase.crashlytics-9.0.0.tgz",
-  "com.google.firebase.remote-config" : "file:../GooglePackages/com.google.firebase.remote-config-9.0.0.tgz",
+  "com.google.firebase.app": "file:../GooglePackages/com.google.firebase.app-10.1.0.tgz",
+  "com.google.firebase.auth": "file:../GooglePackages/com.google.firebase.auth-10.1.0.tgz",
+  "com.google.firebase.storage": "file:../GooglePackages/com.google.firebase.storage-10.1.0.tgz",
+  "com.google.firebase.analytics": "file:../GooglePackages/com.google.firebase.analytics-10.1.0.tgz",
+  "com.google.firebase.crashlytics": "file:../GooglePackages/com.google.firebase.crashlytics-10.1.0.tgz",
+  "com.google.firebase.remote-config" : "file:../GooglePackages/com.google.firebase.remote-config-10.1.0.tgz",
   "com.littlebitgames.analytics": "https://github.com/LittleBitOrganization/evolution-engine-analytics.git",
   "com.dbrizov.naughtyattributes": "https://github.com/dbrizov/NaughtyAttributes.git#upm"
 }
