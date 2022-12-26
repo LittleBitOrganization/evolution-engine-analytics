@@ -2,6 +2,7 @@ using System;
 using com.adjust.sdk;
 using LittleBitGames.Environment.Events;
 using NaughtyAttributes;
+using RemoteConfig;
 using UnityEngine;
 
 namespace LittleBit.Modules.Analytics.EventSystem.Configs
@@ -11,7 +12,6 @@ namespace LittleBit.Modules.Analytics.EventSystem.Configs
         [SerializeField, EnumFlags] private EventsServiceType enabledServices = EventsServiceType.Everything;
 
         [SerializeField, ShowIf(nameof(IsEnableAdjust))] private AdjustSettings _adjustSettings;
-        
         
         public EventsServiceType EnabledServices => enabledServices;
 
@@ -27,8 +27,9 @@ namespace LittleBit.Modules.Analytics.EventSystem.Configs
                     return null;
             }
         }
-        
-        
+
+        [field: SerializeField] public FallbackConfig FallbackRemoteConfig { get; private set; }
+
         internal bool IsEnableService(EventsServiceType type) => enabledServices.IsEnableService(type);
         
         private bool IsEnableAdjust => IsEnableService(EventsServiceType.Adjust);
