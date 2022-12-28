@@ -1,13 +1,18 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Firebase.RemoteConfig;
+using LittleBit.Modules.Analytics.EventSystem.Configs;
 using UnityEngine;
 
 namespace RemoteConfig
 {
     public class FirebaseRemoteConfigLoader : RemoteConfigLoader
     {
-        public FirebaseRemoteConfigLoader(IRemoteConfig fallbackConfig) : base(fallbackConfig) { }
+        private readonly AnalyticsConfig _analyticsConfig;
+
+        public FirebaseRemoteConfigLoader(IRemoteConfig fallbackConfig, AnalyticsConfig analyticsConfig) : base(fallbackConfig) =>
+            _analyticsConfig = analyticsConfig;
 
         protected override async Task<IRemoteConfig> GetAsyncImpl()
         {
@@ -15,7 +20,7 @@ namespace RemoteConfig
 
             Debug.Log("Trying to fetch firebase remote config");
 
-            await config.FetchAsync();
+            await config.FetchAsync(TimeSpan.FromHours(_analyticsConfig.RemoteConfigCacheExpiration));
             await config.ActivateAsync();
 
             Debug.Log("Firebase remote config has been fetched!");
