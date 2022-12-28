@@ -28,6 +28,7 @@ namespace LittleBit.Modules.Analytics.EventSystem.Configs
             }
         }
 
+        [field: SerializeField] public int RemoteConfigCacheExpiration { get; private set; }
         [field: SerializeField] public FallbackConfig FallbackRemoteConfig { get; private set; }
 
         internal bool IsEnableService(EventsServiceType type) => enabledServices.IsEnableService(type);
