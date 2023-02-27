@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using com.adjust.sdk;
-
 using LittleBit.Modules.Analytics.EventSystem.Configs;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventCurrency;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Data;
@@ -11,6 +9,7 @@ using LittleBit.Modules.Analytics.EventSystem.Events.EventEncommerce;
 using LittleBit.Modules.Analytics.EventSystem.Strategy;
 using LittleBitGames.Environment.Ads;
 using LittleBitGames.Environment.Events;
+using Wazzitude;
 
 namespace LittleBit.Modules.Analytics.EventSystem.Services
 {
@@ -32,31 +31,39 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
             {
                 new FireBaseEvent(),
                 new GameEvent(),
-                new AdjustSystemEvent(_config.AdjustSettings)
+                new AdjustSystemEvent(_config.AdjustSettings),
+                new AmplitudeEvent(),
+                new WazzitudeSystemEvent(WazzitudeAnalytics.Instance)
             };
 
             _analyticsCurrencies = new List<ICurrencyEvent<IDataEventCurrency>>()
             {
                 new GameEvent(),
-                new FireBaseEvent()
+                new FireBaseEvent(),
             };
             
             _designEvents = new List<IDesignEvent<IDataEventDesign>>()
             {
                 new GameEvent(),
                 new AdjustSystemEvent(_config.AdjustSettings),
-                new FireBaseEvent()
+                new FireBaseEvent(),
+                new AmplitudeEvent(),
+                new WazzitudeSystemEvent(WazzitudeAnalytics.Instance)
             };
 
             _designEventsWithParameters = new List<IDesignEventWithParameters>()
             {
-                new FireBaseEvent()
+                new FireBaseEvent(),
+                new AmplitudeEvent(),
+                new WazzitudeSystemEvent(WazzitudeAnalytics.Instance)
             };
 
             _ecommerceEvents = new List<IEcommerceEvent<IDataEventEcommerce>>()
             {
                 new GameEvent(),
-                new AdjustSystemEvent(_config.AdjustSettings)
+                new AdjustSystemEvent(_config.AdjustSettings),
+                new AmplitudeEvent(),
+                new WazzitudeSystemEvent(WazzitudeAnalytics.Instance)
             };
         }
 
@@ -128,6 +135,8 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
             if (!mask.HasFlag(EventsServiceType.Firebase)) clone.RemoveAll(s => s is FireBaseEvent);
             if (!mask.HasFlag(EventsServiceType.GA)) clone.RemoveAll(s => s is GameEvent);
             if (!mask.HasFlag(EventsServiceType.Adjust)) clone.RemoveAll(s => s is AdjustSystemEvent);
+            if (!mask.HasFlag(EventsServiceType.Amplitude)) clone.RemoveAll(s => s is AmplitudeEvent);
+            if (!mask.HasFlag(EventsServiceType.Wazzitude)) clone.RemoveAll(s => s is WazzitudeSystemEvent);
 
             return clone;
         }

@@ -14,6 +14,8 @@ namespace LittleBit.Modules.Analytics.Initializers
             firebaseInitializer.Start();
             (new AdjustInitializer(gameObject)).Start();
             (new GameanalyticsInitializer()).Start();
+            (new AmplitudeInitializer()).Start();
+            (new WazzitudeInitializer()).Start();
         }
     }
 }

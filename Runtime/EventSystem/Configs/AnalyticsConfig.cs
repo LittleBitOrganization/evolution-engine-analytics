@@ -4,7 +4,6 @@ using LittleBitGames.Environment.Events;
 using NaughtyAttributes;
 using RemoteConfig;
 using UnityEngine;
-
 namespace LittleBit.Modules.Analytics.EventSystem.Configs
 {
     public class AnalyticsConfig : ScriptableObject
@@ -13,9 +12,16 @@ namespace LittleBit.Modules.Analytics.EventSystem.Configs
 
         [SerializeField, ShowIf(nameof(IsEnableAdjust))] private AdjustSettings _adjustSettings;
         
+        
+        [SerializeField, ShowIf(nameof(IsEnableAmplitude))] private string _amplitude_api_key;
+        
+        [SerializeField, ShowIf(nameof(IsEnableWazzitude))] private string _wazzitude_url;
+        
         public EventsServiceType EnabledServices => enabledServices;
 
 
+        public string WazzitudeUrl => _wazzitude_url;
+        public string AmplitudeApiKey => _amplitude_api_key;
         public AdjustSettings AdjustSettings => _adjustSettings;
         public AdjustConfig AdjustConfig
         {
@@ -33,7 +39,9 @@ namespace LittleBit.Modules.Analytics.EventSystem.Configs
 
         internal bool IsEnableService(EventsServiceType type) => enabledServices.IsEnableService(type);
         
+        private bool IsEnableWazzitude => IsEnableService(EventsServiceType.Wazzitude);
         private bool IsEnableAdjust => IsEnableService(EventsServiceType.Adjust);
+        private bool IsEnableAmplitude => IsEnableService(EventsServiceType.Amplitude);
         private bool IsEnableGa => IsEnableService(EventsServiceType.GA);
         private bool IsEnableFireBase => IsEnableService(EventsServiceType.Firebase);
     }

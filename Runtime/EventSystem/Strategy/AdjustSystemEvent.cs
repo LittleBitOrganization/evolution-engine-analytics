@@ -27,8 +27,12 @@ namespace LittleBit.Modules.Analytics.EventSystem.Strategy
             AdjustAdRevenue adjustAdRevenue = new AdjustAdRevenue(data.SdkSource.Source);
             // set revenue and currency
             adjustAdRevenue.setRevenue(data.Value, data.Currency);
+            adjustAdRevenue.setAdImpressionsCount(1);
+            adjustAdRevenue.setAdRevenueUnit(data.AdFormat);
+            adjustAdRevenue.setAdRevenuePlacement(data.AdUnitName);
             // optional parameters
             adjustAdRevenue.setAdRevenueNetwork(data.AdSource);
+            
             // track ad revenue
             Adjust.trackAdRevenue(adjustAdRevenue);
         }
@@ -40,7 +44,7 @@ namespace LittleBit.Modules.Analytics.EventSystem.Strategy
             adjustEvent.currency = data.Currency;
             adjustEvent.revenue = data.Amount;
             adjustEvent.receipt = data.Receipt;
-            
+
             Adjust.trackEvent(adjustEvent);
         }
     }
