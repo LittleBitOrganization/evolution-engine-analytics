@@ -5,15 +5,15 @@ using LittleBit.Modules.Analytics.EventSystem.Configs;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventCurrency;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Data;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Events;
-using LittleBit.Modules.Analytics.EventSystem.Events.EventEncommerce;
 using LittleBit.Modules.Analytics.EventSystem.Strategy;
 using LittleBitGames.Environment.Ads;
 using LittleBitGames.Environment.Events;
+using LittleBitGames.Environment.Purchase;
 using Wazzitude;
 
 namespace LittleBit.Modules.Analytics.EventSystem.Services
 {
-    public class EventsService : IEventsService, IAdsEventService
+    public class EventsService : IEventsService, IAdsEventService,IIAPEventService
     {
         private readonly List<ICurrencyEvent<IDataEventCurrency>> _analyticsCurrencies;
         private readonly List<IAdImpressionEvent<IDataEventAdImpression>> _analyticsAdImpression;

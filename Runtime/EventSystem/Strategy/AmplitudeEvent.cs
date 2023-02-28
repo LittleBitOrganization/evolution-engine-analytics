@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Data;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Events;
-using LittleBit.Modules.Analytics.EventSystem.Events.EventEncommerce;
 using LittleBitGames.Environment.Events;
 using UnityEngine;
 

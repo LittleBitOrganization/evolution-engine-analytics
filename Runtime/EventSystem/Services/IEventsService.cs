@@ -1,6 +1,5 @@
 using LittleBit.Modules.Analytics.EventSystem.Events.EventCurrency;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Data;
-using LittleBit.Modules.Analytics.EventSystem.Events.EventEncommerce;
 using LittleBitGames.Environment.Events;
 
 namespace LittleBit.Modules.Analytics.EventSystem.Services
