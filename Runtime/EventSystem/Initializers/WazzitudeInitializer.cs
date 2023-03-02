@@ -10,13 +10,17 @@ namespace LittleBit.Modules.Analytics.Initializers
         public void Start()
         {
             var analyticsConfig = new AnalyticsConfigFactory().Create();
-            if (analyticsConfig.IsEnableService(EventsServiceType.Wazzitude)
-                &&analyticsConfig.IsEnableService(EventsServiceType.Amplitude)
-                &&analyticsConfig.IsEnableService(EventsServiceType.Adjust))
+            if (analyticsConfig.IsEnableService(EventsServiceType.Wazzitude))
             {
                 if (!string.IsNullOrEmpty(analyticsConfig.WazzitudeUrl))
                 {
-                    WazzitudeAnalytics.Instance.Init(analyticsConfig.WazzitudeUrl, GetAdid(),GetAmplitudeDeviceId());
+                    var adjustId = "";
+                    var amplitudeId = "";
+                    if (analyticsConfig.IsEnableService(EventsServiceType.Amplitude))
+                        amplitudeId = GetAmplitudeDeviceId();
+                    if (analyticsConfig.IsEnableService(EventsServiceType.Adjust))
+                        adjustId = GetAdid();
+                    WazzitudeAnalytics.Instance.Init(analyticsConfig.WazzitudeUrl, adjustId,amplitudeId);
                 }
                 else
                 {
