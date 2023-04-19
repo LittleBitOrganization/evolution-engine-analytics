@@ -17,11 +17,17 @@ namespace LittleBit.Modules.Analytics.EventSystem.Configs
         
         [SerializeField, ShowIf(nameof(IsEnableWazzitude))] private string _wazzitude_url;
         
-        public EventsServiceType EnabledServices => enabledServices;
+        [SerializeField, ShowIf(nameof(IsEnableAppsFlyer))] private string _appsflyer_dev_key;
+#if UNITY_IOS        
+        [SerializeField, ShowIf(nameof(IsEnableAppsFlyer))] private string _appsflyer_ios_app_ID;
+        public string AppsFlyerAppID => _appsflyer_ios_app_ID;
+#endif
 
+        public EventsServiceType EnabledServices => enabledServices;
 
         public string WazzitudeUrl => _wazzitude_url;
         public string AmplitudeApiKey => _amplitude_api_key;
+        public string AppsFlyerDevKey => _appsflyer_dev_key;
         public AdjustSettings AdjustSettings => _adjustSettings;
         public AdjustConfig AdjustConfig
         {
@@ -44,6 +50,7 @@ namespace LittleBit.Modules.Analytics.EventSystem.Configs
         private bool IsEnableAmplitude => IsEnableService(EventsServiceType.Amplitude);
         private bool IsEnableGa => IsEnableService(EventsServiceType.GA);
         private bool IsEnableFireBase => IsEnableService(EventsServiceType.Firebase);
+        private bool IsEnableAppsFlyer => IsEnableService(EventsServiceType.AppsFlyer);
     }
 
     [Serializable]

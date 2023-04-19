@@ -16,6 +16,7 @@ namespace LittleBit.Modules.Analytics.Initializers
             (new GameanalyticsInitializer()).Start();
             (new AmplitudeInitializer()).Start();
             (new WazzitudeInitializer()).Start();
+            (new AppsFlyerInitializer()).Start();
         }
     }
 }

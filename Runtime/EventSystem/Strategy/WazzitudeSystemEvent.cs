@@ -6,8 +6,6 @@ using Wazzitude;
 
 namespace LittleBit.Modules.Analytics.EventSystem.Strategy
 {
-    
-    
     public class WazzitudeSystemEvent:IAdImpressionEvent<IDataEventAdImpression>, 
         IEcommerceEvent<IDataEventEcommerce>,
         IDesignEvent<IDataEventDesign>,

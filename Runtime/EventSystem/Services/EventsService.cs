@@ -33,7 +33,8 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
                 new GameEvent(),
                 new AdjustSystemEvent(_config.AdjustSettings),
                 new AmplitudeEvent(),
-                new WazzitudeSystemEvent(WazzitudeAnalytics.Instance)
+                new WazzitudeSystemEvent(WazzitudeAnalytics.Instance),
+                new AppsFlyerEvent()
             };
 
             _analyticsCurrencies = new List<ICurrencyEvent<IDataEventCurrency>>()
@@ -48,14 +49,16 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
                 new AdjustSystemEvent(_config.AdjustSettings),
                 new FireBaseEvent(),
                 new AmplitudeEvent(),
-                new WazzitudeSystemEvent(WazzitudeAnalytics.Instance)
+                new WazzitudeSystemEvent(WazzitudeAnalytics.Instance),
+                new AppsFlyerEvent()
             };
 
             _designEventsWithParameters = new List<IDesignEventWithParameters>()
             {
                 new FireBaseEvent(),
                 new AmplitudeEvent(),
-                new WazzitudeSystemEvent(WazzitudeAnalytics.Instance)
+                new WazzitudeSystemEvent(WazzitudeAnalytics.Instance),
+                new AppsFlyerEvent()
             };
 
             _ecommerceEvents = new List<IEcommerceEvent<IDataEventEcommerce>>()
@@ -63,7 +66,8 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
                 new GameEvent(),
                 new AdjustSystemEvent(_config.AdjustSettings),
                 new AmplitudeEvent(),
-                new WazzitudeSystemEvent(WazzitudeAnalytics.Instance)
+                new WazzitudeSystemEvent(WazzitudeAnalytics.Instance),
+                new AppsFlyerEvent()
             };
         }
 
@@ -137,6 +141,7 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
             if (!mask.HasFlag(EventsServiceType.Adjust)) clone.RemoveAll(s => s is AdjustSystemEvent);
             if (!mask.HasFlag(EventsServiceType.Amplitude)) clone.RemoveAll(s => s is AmplitudeEvent);
             if (!mask.HasFlag(EventsServiceType.Wazzitude)) clone.RemoveAll(s => s is WazzitudeSystemEvent);
+            if (!mask.HasFlag(EventsServiceType.AppsFlyer)) clone.RemoveAll(s => s is AppsFlyerEvent);
 
             return clone;
         }
@@ -149,10 +154,6 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
                 analytics.AdRevenuePaidEvent(data);
             }
         }
-        
-        
-     
-
         public void EcommercePurchase(IDataEventEcommerce dataEventEcommerce)
         {
             foreach (var e in _ecommerceEvents)
