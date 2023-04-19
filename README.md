@@ -47,7 +47,8 @@
   "com.google.firebase.crashlytics": "file:../GooglePackages/com.google.firebase.crashlytics-10.1.0.tgz",
   "com.google.firebase.remote-config" : "file:../GooglePackages/com.google.firebase.remote-config-10.1.0.tgz",
   "com.littlebitgames.analytics": "https://github.com/LittleBitOrganization/evolution-engine-analytics.git",
-  "com.dbrizov.naughtyattributes": "https://github.com/dbrizov/NaughtyAttributes.git#upm"
+  "com.dbrizov.naughtyattributes": "https://github.com/dbrizov/NaughtyAttributes.git#upm",
+  "appsflyer-unity-plugin": "https://github.com/AppsFlyerSDK/appsflyer-unity-plugin.git#upm"
 }
 ```
 
