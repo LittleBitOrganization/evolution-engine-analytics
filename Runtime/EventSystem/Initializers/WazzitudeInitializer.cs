@@ -1,4 +1,5 @@
-﻿using LittleBit.Modules.Analytics.EventSystem.Services;
+﻿#if WAZZITUDE
+using LittleBit.Modules.Analytics.EventSystem.Services;
 using LittleBitGames.Environment.Events;
 using UnityEngine;
 using Wazzitude;
@@ -39,8 +40,5 @@ namespace LittleBit.Modules.Analytics.Initializers
             return Amplitude.Instance.getDeviceId();
         }
     }
-    
-    
-    
-    
 }
+#endif

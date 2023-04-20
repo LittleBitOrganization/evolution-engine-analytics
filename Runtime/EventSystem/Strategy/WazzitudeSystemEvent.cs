@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#if WAZZITUDE
+using System.Collections.Generic;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Data;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Events;
 using LittleBitGames.Environment.Events;
@@ -47,3 +48,4 @@ namespace LittleBit.Modules.Analytics.EventSystem.Strategy
         
     }
 }
+#endif

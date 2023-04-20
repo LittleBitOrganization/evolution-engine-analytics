@@ -15,7 +15,9 @@ namespace LittleBit.Modules.Analytics.Initializers
             (new AdjustInitializer(gameObject)).Start();
             (new GameanalyticsInitializer()).Start();
             (new AmplitudeInitializer()).Start();
+#if WAZZITUDE
             (new WazzitudeInitializer()).Start();
+#endif
             (new AppsFlyerInitializer()).Start();
         }
     }
