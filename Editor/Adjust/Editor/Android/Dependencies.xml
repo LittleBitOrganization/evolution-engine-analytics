@@ -1,5 +1,0 @@
-<androidPackages>
-        <androidPackage spec="com.android.installreferrer:installreferrer:2.2" />
-        <androidPackage spec="com.google.android.gms:play-services-ads-identifier:18.0.1" />
-        <androidPackage spec="com.google.android.gms:play-services-safetynet:18.0.1" />
-</androidPackages>
