@@ -81,6 +81,7 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
             };
         }
 
+        //TODO отсутсвует маска в конфиге для фильтрации
         public void SpendVirtualCurrency(DataEventCurrency dataEventCurrency,
             EventsServiceType flags = EventsServiceType.Everything)
         {
@@ -93,6 +94,7 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
             }
         }
 
+        //TODO отсутсвует маска в конфиге для фильтрации
         public void EarnVirtualCurrency(DataEventCurrency dataEventCurrency,
             EventsServiceType flags = EventsServiceType.Everything)
         {
@@ -107,13 +109,14 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
 
         public void DesignEvent(DataEventDesign dataEventDesign, EventsServiceType flags = EventsServiceType.Everything)
         {
+            flags &= _config.EventMask.DesignEventServices;
             foreach (var eventSystem in FilterEventSystems(_designEvents, flags))
             {
                 eventSystem.DesignEvent(dataEventDesign);
             }
         }
 
-        private void DesignEvent(DataEventDesign dataEventDesign, List<Type> excludeTypesEventServices,
+        private void DesignEventResidual(DataEventDesign dataEventDesign, List<Type> excludeTypesEventServices,
             EventsServiceType flags)
         {
             foreach (var eventSystem in FilterEventSystems(_designEvents, flags))
@@ -128,6 +131,7 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
         public void DesignEventWithParams(DataEventDesignWithParams dataEventDesignWithParams,
             EventsServiceType flags = EventsServiceType.Everything)
         {
+            flags &= _config.EventMask.DesignWithParamsEventServices;
             var listExcludeEventServices = new List<Type>();
 
             foreach (var eventSystem in FilterEventSystems(_designEventsWithParameters, flags))
@@ -137,7 +141,7 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
                 listExcludeEventServices.Add(eventSystem.GetType());
             }
 
-            DesignEvent(dataEventDesignWithParams, listExcludeEventServices, flags);
+            DesignEventResidual(dataEventDesignWithParams, listExcludeEventServices, flags);
         }
 
         private List<T> FilterEventSystems<T>(List<T> systems, EventsServiceType flags = EventsServiceType.Everything)
@@ -146,29 +150,31 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
 
             var clone = systems.ToList();
 
-            if (!mask.HasFlag(EventsServiceType.Firebase)) clone.RemoveAll(s => s is FireBaseEvent);
-            if (!mask.HasFlag(EventsServiceType.GA)) clone.RemoveAll(s => s is GameEvent);
-            if (!mask.HasFlag(EventsServiceType.Adjust)) clone.RemoveAll(s => s is AdjustSystemEvent);
-            if (!mask.HasFlag(EventsServiceType.Amplitude)) clone.RemoveAll(s => s is AmplitudeEvent);
+            if (mask.HasFlag(EventsServiceType.Firebase) == false) clone.RemoveAll(s => s is FireBaseEvent);
+            if (mask.HasFlag(EventsServiceType.GA) == false) clone.RemoveAll(s => s is GameEvent);
+            if (mask.HasFlag(EventsServiceType.Adjust) == false) clone.RemoveAll(s => s is AdjustSystemEvent);
+            if (mask.HasFlag(EventsServiceType.Amplitude) == false) clone.RemoveAll(s => s is AmplitudeEvent);
 #if WAZZITUDE
-            if (!mask.HasFlag(EventsServiceType.Wazzitude)) clone.RemoveAll(s => s is WazzitudeSystemEvent);
+            if (mask.HasFlag(EventsServiceType.Wazzitude) == false) clone.RemoveAll(s => s is WazzitudeSystemEvent);
 #endif
-            if (!mask.HasFlag(EventsServiceType.AppsFlyer)) clone.RemoveAll(s => s is AppsFlyerEvent);
+            if (mask.HasFlag(EventsServiceType.AppsFlyer) == false) clone.RemoveAll(s => s is AppsFlyerEvent);
 
             return clone;
         }
 
-        public void AdRevenuePaidEvent(IDataEventAdImpression data,
-            EventsServiceType flags = EventsServiceType.Everything)
+        public void AdRevenuePaidEvent(IDataEventAdImpression data, EventsServiceType flags = EventsServiceType.Everything)
         {
+            flags &= _config.EventMask.AdRevenuePaidEventServices;
             foreach (var analytics in FilterEventSystems(_analyticsAdImpression, flags))
             {
                 analytics.AdRevenuePaidEvent(data);
             }
         }
+        
         public void EcommercePurchase(IDataEventEcommerce dataEventEcommerce)
         {
-            foreach (var e in _ecommerceEvents)
+            EventsServiceType flags = _config.EventMask.IAPEventServices;
+            foreach (var e in FilterEventSystems(_ecommerceEvents, flags))
             {
                 e.EcommercePurchase(dataEventEcommerce);
             }

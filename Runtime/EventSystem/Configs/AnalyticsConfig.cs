@@ -6,13 +6,31 @@ using RemoteConfig;
 using UnityEngine;
 namespace LittleBit.Modules.Analytics.EventSystem.Configs
 {
+    [Serializable]
+    public class EventMask
+    {
+        [SerializeField, EnumFlags] private EventsServiceType _adRevenuePaidEventServices = EventsServiceType.Everything;
+        [SerializeField, EnumFlags] private EventsServiceType _IAPEventServices = EventsServiceType.Everything;
+        
+        [SerializeField, EnumFlags] private EventsServiceType _designEventServices = EventsServiceType.Everything;
+        [SerializeField, EnumFlags] private EventsServiceType _designWithParamsEventServices = EventsServiceType.Everything;
+        
+        public EventsServiceType AdRevenuePaidEventServices => _adRevenuePaidEventServices;
+        public EventsServiceType IAPEventServices => _IAPEventServices;
+        public EventsServiceType DesignWithParamsEventServices => _designWithParamsEventServices;
+        public EventsServiceType DesignEventServices => _designEventServices;
+        public EventsServiceType EnabledServices => AdRevenuePaidEventServices | IAPEventServices | DesignWithParamsEventServices | DesignEventServices;
+    }
     public class AnalyticsConfig : ScriptableObject
     {
-        [SerializeField, EnumFlags] private EventsServiceType enabledServices = EventsServiceType.Everything;
+        [InfoBox("Устаревшее. Включенные сервисы вычисляются путем сложения масок ивентов", EInfoBoxType.Warning)]
+        [SerializeField, EnumFlags, Obsolete] private EventsServiceType enabledServices = EventsServiceType.Everything;
 
+        [SerializeField] private EventMask _eventMask;
+       
+        
         [SerializeField, ShowIf(nameof(IsEnableAdjust))] private AdjustSettings _adjustSettings;
-        
-        
+
         [SerializeField, ShowIf(nameof(IsEnableAmplitude))] private string _amplitude_api_key;
         
         [SerializeField, ShowIf(nameof(IsEnableWazzitude))] private string _wazzitude_url;
@@ -23,7 +41,11 @@ namespace LittleBit.Modules.Analytics.EventSystem.Configs
         public string AppsFlyerAppID => _appsflyer_ios_app_ID;
 #endif
 
-        public EventsServiceType EnabledServices => enabledServices;
+        public EventsServiceType EnabledServices => _eventMask.EnabledServices;
+
+        public EventMask EventMask => _eventMask;
+       
+        
 
         public string WazzitudeUrl => _wazzitude_url;
         public string AmplitudeApiKey => _amplitude_api_key;
@@ -43,7 +65,7 @@ namespace LittleBit.Modules.Analytics.EventSystem.Configs
         [field: SerializeField] public int RemoteConfigCacheExpiration { get; private set; }
         [field: SerializeField] public FallbackConfig FallbackRemoteConfig { get; private set; }
 
-        internal bool IsEnableService(EventsServiceType type) => enabledServices.IsEnableService(type);
+        internal bool IsEnableService(EventsServiceType type) => EnabledServices.IsEnableService(type);
         
         private bool IsEnableWazzitude => IsEnableService(EventsServiceType.Wazzitude);
         private bool IsEnableAdjust => IsEnableService(EventsServiceType.Adjust);
