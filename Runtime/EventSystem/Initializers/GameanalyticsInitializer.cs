@@ -12,7 +12,7 @@ namespace LittleBit.Modules.Analytics.Initializers
             if (analyticsConfig.IsEnableService(EventsServiceType.GA))
             {
                 GameAnalytics.Initialize();
-                GameAnalyticsILRD.SubscribeMaxImpressions();
+                //GameAnalyticsILRD.SubscribeMaxImpressions();
             }
         }
     }
