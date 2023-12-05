@@ -12,7 +12,6 @@ namespace LittleBit.Modules.Analytics.Initializers
             var firebaseInitializer = new FirebaseInitializer();
             firebaseInitializer.OnFirebaseInit += b => OnFirebaseInit?.Invoke(b);
             firebaseInitializer.Start();
-            (new AdjustInitializer(gameObject)).Start();
             (new GameanalyticsInitializer()).Start();
             (new AmplitudeInitializer()).Start();
 #if WAZZITUDE

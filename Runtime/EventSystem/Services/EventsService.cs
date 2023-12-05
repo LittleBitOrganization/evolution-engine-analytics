@@ -33,7 +33,6 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
             {
                 new FireBaseEvent(),
                 new GameEvent(),
-                new AdjustSystemEvent(_config.AdjustSettings),
                 new AmplitudeEvent(),
 #if WAZZITUDE
                 new WazzitudeSystemEvent(WazzitudeAnalytics.Instance),
@@ -50,7 +49,6 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
             _designEvents = new List<IDesignEvent<IDataEventDesign>>()
             {
                 new GameEvent(),
-                new AdjustSystemEvent(_config.AdjustSettings),
                 new FireBaseEvent(),
                 new AmplitudeEvent(),
 #if WAZZITUDE
@@ -72,7 +70,6 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
             _ecommerceEvents = new List<IEcommerceEvent<IDataEventEcommerce>>()
             {
                 new GameEvent(),
-                new AdjustSystemEvent(_config.AdjustSettings),
                 new AmplitudeEvent(),
 #if WAZZITUDE
                 new WazzitudeSystemEvent(WazzitudeAnalytics.Instance),
@@ -152,7 +149,6 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
 
             if (mask.HasFlag(EventsServiceType.Firebase) == false) clone.RemoveAll(s => s is FireBaseEvent);
             if (mask.HasFlag(EventsServiceType.GA) == false) clone.RemoveAll(s => s is GameEvent);
-            if (mask.HasFlag(EventsServiceType.Adjust) == false) clone.RemoveAll(s => s is AdjustSystemEvent);
             if (mask.HasFlag(EventsServiceType.Amplitude) == false) clone.RemoveAll(s => s is AmplitudeEvent);
 #if WAZZITUDE
             if (mask.HasFlag(EventsServiceType.Wazzitude) == false) clone.RemoveAll(s => s is WazzitudeSystemEvent);

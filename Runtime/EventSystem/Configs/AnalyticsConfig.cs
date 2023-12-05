@@ -1,5 +1,4 @@
 using System;
-using com.adjust.sdk;
 using LittleBitGames.Environment.Events;
 using NaughtyAttributes;
 using RemoteConfig;
@@ -27,9 +26,7 @@ namespace LittleBit.Modules.Analytics.EventSystem.Configs
         [SerializeField, EnumFlags, Obsolete] private EventsServiceType enabledServices = EventsServiceType.Everything;
 
         [SerializeField] private EventMask _eventMask;
-       
         
-        [SerializeField, ShowIf(nameof(IsEnableAdjust))] private AdjustSettings _adjustSettings;
 
         [SerializeField, ShowIf(nameof(IsEnableAmplitude))] private string _amplitude_api_key;
         
@@ -50,17 +47,6 @@ namespace LittleBit.Modules.Analytics.EventSystem.Configs
         public string WazzitudeUrl => _wazzitude_url;
         public string AmplitudeApiKey => _amplitude_api_key;
         public string AppsFlyerDevKey => _appsflyer_dev_key;
-        public AdjustSettings AdjustSettings => _adjustSettings;
-        public AdjustConfig AdjustConfig
-        {
-            get
-            {
-                if (IsEnableAdjust)
-                    return _adjustSettings.Create();
-                else
-                    return null;
-            }
-        }
 
         [field: SerializeField] public int RemoteConfigCacheExpiration { get; private set; }
         [field: SerializeField] public FallbackConfig FallbackRemoteConfig { get; private set; }
@@ -74,50 +60,7 @@ namespace LittleBit.Modules.Analytics.EventSystem.Configs
         private bool IsEnableFireBase => IsEnableService(EventsServiceType.Firebase);
         private bool IsEnableAppsFlyer => IsEnableService(EventsServiceType.AppsFlyer);
     }
-
-    [Serializable]
-    public class AdjustSettings
-    {
-        [SerializeField] private string _adjustAppToken;
-        [SerializeField] private AdjustEnvironment _adjustEnvironment;
-        [SerializeField] private AdjustAppSecret _adjustAppSecret;
-        [SerializeField] private bool _eventBuffering = false;
-        [SerializeField] private bool _sendInBackground = false;
-        [SerializeField] private string _purchaseEventToken;
-        [SerializeField] private AdjustLogLevel _logLevel;
-        public string AdjustAppToken => _adjustAppToken;
-        public AdjustEnvironment AdjustEnvironment => _adjustEnvironment;
-        public AdjustAppSecret AdjustAppSecret => _adjustAppSecret;
-        public bool EventBuffering => _eventBuffering;
-        public bool SendInBackground => _sendInBackground;
-        public string PurchaseEventToken => _purchaseEventToken;
-        public AdjustLogLevel LogLevel => _logLevel;
-
-        [field: SerializeField] public TokenRecord[] Tokens { get; private set; }
-
-        public AdjustConfig Create()
-        {
-            var adjustConfig = new AdjustConfig(AdjustAppToken, AdjustEnvironment);
-            adjustConfig.setSendInBackground(SendInBackground);
-            adjustConfig.setEventBufferingEnabled(EventBuffering);
-            adjustConfig.setLogLevel(LogLevel);
-            adjustConfig.setAppSecret(
-                AdjustAppSecret.SecretId,
-                AdjustAppSecret.Info1,
-                AdjustAppSecret.Info2,
-                AdjustAppSecret.Info3,
-                AdjustAppSecret.Info4);
-            return adjustConfig;
-        }
-
-        [Serializable]
-        public struct TokenRecord
-        {
-            [field: SerializeField] public string EventLabel { get; private set; }
-            [field: SerializeField] public string Token { get; private set; }
-        }
-        
-    }
+    
 
     [Serializable]
     public class AdjustAppSecret

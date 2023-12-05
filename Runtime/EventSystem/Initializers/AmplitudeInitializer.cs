@@ -1,5 +1,4 @@
 ﻿using System;
-using com.adjust.sdk;
 using LittleBit.Modules.Analytics.EventSystem.Services;
 using LittleBitGames.Environment.Events;
 using UnityEngine;
