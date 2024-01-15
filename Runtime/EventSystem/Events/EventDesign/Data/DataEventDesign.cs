@@ -10,5 +10,10 @@
         {
             _label = label;
         }
+
+        public override string ToString()
+        {
+            return $"Event: {Label}";
+        }
     }
 }
