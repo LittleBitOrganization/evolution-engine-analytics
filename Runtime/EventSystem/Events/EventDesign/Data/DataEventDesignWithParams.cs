@@ -23,7 +23,7 @@ namespace LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Data
 
             return $"{base.ToString()}\n" +
                    "params:\n" +
-                   "{parameters}";
+                   $"{parameters}";
                    
         }
     }
