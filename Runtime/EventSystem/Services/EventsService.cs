@@ -37,13 +37,15 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
 #if WAZZITUDE
                 new WazzitudeSystemEvent(WazzitudeAnalytics.Instance),
 #endif
-                new AppsFlyerEvent()
+                new AppsFlyerEvent(),
+                new AppMetricaEvent()
             };
 
             _analyticsCurrencies = new List<ICurrencyEvent<IDataEventCurrency>>()
             {
                 new GameEvent(),
                 new FireBaseEvent(),
+                new AppMetricaEvent(),
             };
             
             _designEvents = new List<IDesignEvent<IDataEventDesign>>()
@@ -54,7 +56,8 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
 #if WAZZITUDE
                 new WazzitudeSystemEvent(WazzitudeAnalytics.Instance),
 #endif
-                new AppsFlyerEvent()
+                new AppsFlyerEvent(),
+                new AppMetricaEvent(),
             };
 
             _designEventsWithParameters = new List<IDesignEventWithParameters>()
@@ -64,7 +67,8 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
 #if WAZZITUDE
                 new WazzitudeSystemEvent(WazzitudeAnalytics.Instance),
 #endif
-                new AppsFlyerEvent()
+                new AppsFlyerEvent(),
+                new AppMetricaEvent(),
             };
 
             _ecommerceEvents = new List<IEcommerceEvent<IDataEventEcommerce>>()
@@ -74,7 +78,8 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
 #if WAZZITUDE
                 new WazzitudeSystemEvent(WazzitudeAnalytics.Instance),
 #endif
-                new AppsFlyerEvent()
+                new AppsFlyerEvent(),
+                new AppMetricaEvent(),
             };
         }
 

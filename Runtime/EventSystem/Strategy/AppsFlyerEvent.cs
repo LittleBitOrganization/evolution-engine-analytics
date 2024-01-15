@@ -2,6 +2,7 @@
 using AppsFlyerSDK;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Data;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Events;
+using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Parameters;
 using LittleBitGames.Environment.Events;
 
 namespace LittleBit.Modules.Analytics.EventSystem.Strategy
@@ -35,10 +36,11 @@ namespace LittleBit.Modules.Analytics.EventSystem.Strategy
             var properties = new Dictionary<string, string>();
             foreach (var param in designWithParams.EventParameters)
             {
-                properties.Add(param.Name,param.ValueString);
+                properties.Add(param.Name, param.ConvertValueToString());
             }
             AppsFlyer.sendEvent(designWithParams.Label, properties);
         }
+        
         public void DesignEvent(DataEventDesign label)
         {
             var properties = new Dictionary<string, string>();
