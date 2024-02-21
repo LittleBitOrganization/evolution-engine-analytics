@@ -14,6 +14,11 @@ namespace LittleBit.Modules.Analytics.EventSystem.Strategy
     {
         public void AdRevenuePaidEvent(IDataEventAdImpression data)
         {
+            Debug.LogError("AppsFlyer value =" + data.Value);
+            Debug.LogError("AppsFlyer Currency =" + data.Currency);
+            Debug.LogError("AppsFlyer value.ToString =" + data.Value.ToString());
+            Debug.LogError("AppsFlyer value.ToString(US) =" +
+                           data.Value.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US")));
             Dictionary<string, string> eventValues = new Dictionary<string, string>();
             eventValues.Add("af_adSource", data.AdSource);
             eventValues.Add(AFInAppEvents.REVENUE, data.Value.ToString());
