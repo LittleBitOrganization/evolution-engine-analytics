@@ -4,6 +4,7 @@ using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Data;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Events;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Parameters;
 using LittleBitGames.Environment.Events;
+using UnityEngine;
 
 namespace LittleBit.Modules.Analytics.EventSystem.Strategy
 {
