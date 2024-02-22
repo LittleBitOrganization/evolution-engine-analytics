@@ -32,7 +32,7 @@ namespace LittleBit.Modules.Analytics.EventSystem.Strategy
         {
             Dictionary<string, string> eventValues = new Dictionary<string, string>();
             eventValues.Add(AFInAppEvents.CURRENCY, data.Currency);
-            eventValues.Add(AFInAppEvents.REVENUE, data.Amount.ToString());
+            eventValues.Add(AFInAppEvents.REVENUE, data.Amount.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US")));
             eventValues.Add("af_quantity", "1");
             AppsFlyer.sendEvent(AFInAppEvents.PURCHASE, eventValues);
         }
