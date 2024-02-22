@@ -22,7 +22,7 @@ namespace LittleBit.Modules.Analytics.EventSystem.Strategy
                            data.Value.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US")));
             Dictionary<string, string> eventValues = new Dictionary<string, string>();
             eventValues.Add("af_adSource", data.AdSource);
-            eventValues.Add(AFInAppEvents.REVENUE, data.Value.ToString());
+            eventValues.Add(AFInAppEvents.REVENUE, data.Value.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US")));
             eventValues.Add(AFInAppEvents.CURRENCY, data.Currency);
             eventValues.Add("af_adFormat", data.AdFormat);
             AppsFlyer.sendEvent("af_adImpression", eventValues);
