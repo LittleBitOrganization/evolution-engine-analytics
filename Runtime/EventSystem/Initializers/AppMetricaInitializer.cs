@@ -13,7 +13,7 @@ namespace LittleBit.Modules.Analytics.Initializers
                 var apiKey = analyticsConfig.ApiKeyAppMetrica;
 
                 var appMetrica = AppMetrica.Init();
-                appMetrica.SetupMetrica(apiKey);
+                appMetrica.SetupMetrica(apiKey, 300);
             }
         }
     }
