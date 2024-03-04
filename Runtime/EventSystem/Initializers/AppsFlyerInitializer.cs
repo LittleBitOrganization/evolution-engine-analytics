@@ -16,6 +16,7 @@ namespace LittleBit.Modules.Analytics.Initializers
 #if UNITY_IOS
                 appID = analyticsConfig.AppsFlyerAppID;
 #endif
+                AppsFlyer.enableTCFDataCollection(true);
                 AppsFlyer.initSDK(devKey, appID);
                 AppsFlyer.startSDK();
             }
