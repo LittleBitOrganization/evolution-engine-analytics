@@ -3,6 +3,7 @@ using LittleBit.Modules.Analytics.EventSystem.Configs;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventCurrency;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Data;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Events;
+using LittleBitGames.Environment;
 using LittleBitGames.Environment.Events;
 
 namespace LittleBit.Modules.Analytics.EventSystem.Strategy

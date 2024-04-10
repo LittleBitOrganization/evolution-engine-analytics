@@ -1,4 +1,5 @@
 using System;
+using LittleBitGames.Environment;
 using LittleBitGames.Environment.Events;
 using NaughtyAttributes;
 using RemoteConfig;
