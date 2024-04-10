@@ -22,8 +22,7 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
         private readonly List<IDesignEvent<IDataEventDesign>> _designEvents;
         private readonly List<IDesignEventWithParameters> _designEventsWithParameters;
         private readonly List<IEcommerceEvent<IDataEventEcommerce>> _ecommerceEvents;
-
-        private AnalyticsConfig _config;
+        private readonly AnalyticsConfig _config;
 
         public EventsService()
         {
@@ -32,54 +31,54 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
             _analyticsAdImpression = new List<IAdImpressionEvent<IDataEventAdImpression>>()
             {
                 new FireBaseEvent(),
-                new GameEvent(),
-                new AmplitudeEvent(),
+                new GameEvent(_config.Mode),
+                new AmplitudeEvent(_config.Mode),
 #if WAZZITUDE
                 new WazzitudeSystemEvent(WazzitudeAnalytics.Instance),
 #endif
-                new AppsFlyerEvent(),
-                new AppMetricaEvent()
+                new AppsFlyerEvent(_config.Mode),
+                new AppMetricaEvent(_config.Mode)
             };
 
             _analyticsCurrencies = new List<ICurrencyEvent<IDataEventCurrency>>()
             {
-                new GameEvent(),
+                new GameEvent(_config.Mode),
                 new FireBaseEvent(),
-                new AppMetricaEvent(),
+                new AppMetricaEvent(_config.Mode),
             };
             
             _designEvents = new List<IDesignEvent<IDataEventDesign>>()
             {
-                new GameEvent(),
+                new GameEvent(_config.Mode),
                 new FireBaseEvent(),
-                new AmplitudeEvent(),
+                new AmplitudeEvent(_config.Mode),
 #if WAZZITUDE
                 new WazzitudeSystemEvent(WazzitudeAnalytics.Instance),
 #endif
-                new AppsFlyerEvent(),
-                new AppMetricaEvent(),
+                new AppsFlyerEvent(_config.Mode),
+                new AppMetricaEvent(_config.Mode),
             };
 
             _designEventsWithParameters = new List<IDesignEventWithParameters>()
             {
                 new FireBaseEvent(),
-                new AmplitudeEvent(),
+                new AmplitudeEvent(_config.Mode),
 #if WAZZITUDE
                 new WazzitudeSystemEvent(WazzitudeAnalytics.Instance),
 #endif
-                new AppsFlyerEvent(),
-                new AppMetricaEvent(),
+                new AppsFlyerEvent(_config.Mode),
+                new AppMetricaEvent(_config.Mode),
             };
 
             _ecommerceEvents = new List<IEcommerceEvent<IDataEventEcommerce>>()
             {
-                new GameEvent(),
-                new AmplitudeEvent(),
+                new GameEvent(_config.Mode),
+                new AmplitudeEvent(_config.Mode),
 #if WAZZITUDE
                 new WazzitudeSystemEvent(WazzitudeAnalytics.Instance),
 #endif
-                new AppsFlyerEvent(),
-                new AppMetricaEvent(),
+                new AppsFlyerEvent(_config.Mode),
+                new AppMetricaEvent(_config.Mode),
             };
         }
 

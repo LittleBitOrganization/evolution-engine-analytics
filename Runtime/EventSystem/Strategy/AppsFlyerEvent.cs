@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using AppsFlyerSDK;
+using LittleBit.Modules.Analytics.EventSystem.Configs;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Data;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Events;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Parameters;
@@ -13,6 +14,13 @@ namespace LittleBit.Modules.Analytics.EventSystem.Strategy
         IDesignEventWithParameters,
         IDesignEvent<IDataEventDesign>
     {
+        private readonly ExecutionMode _executionMode;
+
+        public AppsFlyerEvent(ExecutionMode executionMode)
+        {
+            _executionMode = executionMode;
+        }
+        
         public void AdRevenuePaidEvent(IDataEventAdImpression data)
         {
             // Debug.LogError("AppsFlyer value =" + data.Value);
@@ -30,11 +38,14 @@ namespace LittleBit.Modules.Analytics.EventSystem.Strategy
 
         public void EcommercePurchase(IDataEventEcommerce data)
         {
-            Dictionary<string, string> eventValues = new Dictionary<string, string>();
-            eventValues.Add(AFInAppEvents.CURRENCY, data.Currency);
-            eventValues.Add(AFInAppEvents.REVENUE, data.Amount.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US")));
-            eventValues.Add("af_quantity", "1");
-            AppsFlyer.sendEvent(AFInAppEvents.PURCHASE, eventValues);
+            if (_executionMode == ExecutionMode.Production)
+            {
+                Dictionary<string, string> eventValues = new Dictionary<string, string>();
+                eventValues.Add(AFInAppEvents.CURRENCY, data.Currency);
+                eventValues.Add(AFInAppEvents.REVENUE, data.Amount.ToString(System.Globalization.CultureInfo.GetCultureInfo("en-US")));
+                eventValues.Add("af_quantity", "1");
+                AppsFlyer.sendEvent(AFInAppEvents.PURCHASE, eventValues);
+            }
         }
 
         public void DesignEventWithParameters(DataEventDesignWithParams designWithParams)

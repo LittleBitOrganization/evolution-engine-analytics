@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using LittleBit.Modules.Analytics.EventSystem.Configs;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Data;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Events;
 using LittleBitGames.Environment.Events;
@@ -12,7 +13,13 @@ namespace LittleBit.Modules.Analytics.EventSystem.Strategy
         IDesignEvent<IDataEventDesign>,
         IDesignEventWithParameters
     {
+        private readonly ExecutionMode _executionMode;
         private readonly string amFirstOpenPrefs = "f34f43gh565hg2g234g43h_open_sent";
+
+        public AmplitudeEvent(ExecutionMode executionMode)
+        {
+            _executionMode = executionMode;
+        }
         
         public void AdRevenuePaidEvent(IDataEventAdImpression data)
         {
@@ -29,15 +36,18 @@ namespace LittleBit.Modules.Analytics.EventSystem.Strategy
 
         public void EcommercePurchase(IDataEventEcommerce data)
         {
-            Amplitude.Instance.setUserProperty("playing_days", DaysOfPlayingInt);
+            if (_executionMode == ExecutionMode.Production)
+            {
+                Amplitude.Instance.setUserProperty("playing_days", DaysOfPlayingInt);
             
-            var impressionEventDataParameters = new Dictionary<string, object>
-                {{"$currency", data.Currency}};
-            Amplitude.Instance.logRevenue(data.ItemId, 1,
-                data.Amount,
-                data.Receipt,
-                data.Signature,
-                "inapp", impressionEventDataParameters);
+                var impressionEventDataParameters = new Dictionary<string, object>
+                    {{"$currency", data.Currency}};
+                Amplitude.Instance.logRevenue(data.ItemId, 1,
+                    data.Amount,
+                    data.Receipt,
+                    data.Signature,
+                    "inapp", impressionEventDataParameters);
+            }
         }
 
         public void DesignEvent(DataEventDesign label)

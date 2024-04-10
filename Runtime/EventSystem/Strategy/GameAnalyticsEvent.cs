@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using GameAnalyticsSDK;
+using LittleBit.Modules.Analytics.EventSystem.Configs;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventCurrency;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Data;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Events;
@@ -13,6 +14,13 @@ namespace LittleBit.Modules.Analytics.EventSystem.Strategy
         IEcommerceEvent<IDataEventEcommerce>,
         IAdImpressionEvent<IDataEventAdImpression>
     {
+        private readonly ExecutionMode _executionMode;
+        
+        public GameEvent(ExecutionMode executionMode)
+        {
+            _executionMode = executionMode;
+        }
+        
         public void EarnVirtualCurrency(IDataEventCurrency dataEventCurrency)
         {
             GameAnalytics.NewResourceEvent(GAResourceFlowType.Source,
@@ -39,7 +47,10 @@ namespace LittleBit.Modules.Analytics.EventSystem.Strategy
 
         public void EcommercePurchase(IDataEventEcommerce data)
         {
-            GameAnalytics.NewBusinessEvent(data.Currency,(int) (data.Amount * 100), data.ItemType, data.ItemId, data.CartType);
+            if (_executionMode == ExecutionMode.Production)
+            {
+                GameAnalytics.NewBusinessEvent(data.Currency,(int) (data.Amount * 100), data.ItemType, data.ItemId, data.CartType);
+            }
         }
 
         public void AdRevenuePaidEvent(IDataEventAdImpression data)

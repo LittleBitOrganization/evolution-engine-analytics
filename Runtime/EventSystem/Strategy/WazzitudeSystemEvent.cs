@@ -1,5 +1,6 @@
 ﻿#if WAZZITUDE
 using System.Collections.Generic;
+using LittleBit.Modules.Analytics.EventSystem.Configs;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Data;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Events;
 using LittleBitGames.Environment.Events;
@@ -13,10 +14,12 @@ namespace LittleBit.Modules.Analytics.EventSystem.Strategy
         IDesignEventWithParameters
     {
         private readonly IWazzitudeAnalytics _wazzitudeAnalytics;
+        private readonly ExecutionMode _executionMode;
 
-        public WazzitudeSystemEvent(IWazzitudeAnalytics wazzitudeAnalytics)
+        public WazzitudeSystemEvent(IWazzitudeAnalytics wazzitudeAnalytics, ExecutionMode executionMode)
         {
             _wazzitudeAnalytics = wazzitudeAnalytics;
+            _executionMode = executionMode;
         }
         public void AdRevenuePaidEvent(IDataEventAdImpression data)
         {
@@ -25,8 +28,11 @@ namespace LittleBit.Modules.Analytics.EventSystem.Strategy
 
         public void EcommercePurchase(IDataEventEcommerce data)
         {
-            _wazzitudeAnalytics.TrackPurchase(data.ItemId, data.Currency, data.Amount, data.Receipt,
-                data.Signature);
+            if (_executionMode == ExecutionMode.Production)
+            {
+                _wazzitudeAnalytics.TrackPurchase(data.ItemId, data.Currency, data.Amount, data.Receipt,
+                    data.Signature);
+            }
         }
 
         public void DesignEvent(DataEventDesign label)
@@ -44,8 +50,6 @@ namespace LittleBit.Modules.Analytics.EventSystem.Strategy
             }
             _wazzitudeAnalytics.SendEvent(designWithParams.Label,properties);
         }
-        
-        
     }
 }
 #endif

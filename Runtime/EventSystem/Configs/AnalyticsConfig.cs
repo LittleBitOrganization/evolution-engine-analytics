@@ -10,7 +10,6 @@ namespace LittleBit.Modules.Analytics.EventSystem.Configs
     {
         [SerializeField, EnumFlags] private EventsServiceType _adRevenuePaidEventServices = EventsServiceType.Everything;
         [SerializeField, EnumFlags] private EventsServiceType _IAPEventServices = EventsServiceType.Everything;
-        
         [SerializeField, EnumFlags] private EventsServiceType _designEventServices = EventsServiceType.Everything;
         [SerializeField, EnumFlags] private EventsServiceType _designWithParamsEventServices = EventsServiceType.Everything;
         
@@ -22,6 +21,7 @@ namespace LittleBit.Modules.Analytics.EventSystem.Configs
     }
     public class AnalyticsConfig : ScriptableObject
     {
+        [SerializeField] private ExecutionMode mode;
         [InfoBox("Устаревшее. Включенные сервисы вычисляются путем сложения масок ивентов", EInfoBoxType.Warning)]
         [SerializeField, EnumFlags, Obsolete] private EventsServiceType enabledServices = EventsServiceType.Everything;
 
@@ -45,7 +45,7 @@ namespace LittleBit.Modules.Analytics.EventSystem.Configs
 
         public EventMask EventMask => _eventMask;
         
-
+        public ExecutionMode Mode => mode;
         public string WazzitudeUrl => _wazzitude_url;
         public string AmplitudeApiKey => _amplitude_api_key;
         public string AppsFlyerDevKey => _appsflyer_dev_key;

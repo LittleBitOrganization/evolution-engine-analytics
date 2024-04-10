@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using LittleBit.Modules.Analytics.EventSystem.Configs;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventCurrency;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Data;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Events;
@@ -12,6 +13,13 @@ namespace LittleBit.Modules.Analytics.EventSystem.Strategy
         IDesignEventWithParameters, 
         IEcommerceEvent<IDataEventEcommerce>
     {
+        private readonly ExecutionMode _executionMode;
+        
+        public AppMetricaEvent(ExecutionMode executionMode)
+        {
+            _executionMode = executionMode;
+        }
+        
         public void EarnVirtualCurrency(IDataEventCurrency dataEventCurrency)
         {
             AppMetrica.Instance.ReportEvent(CustomEventNames.EarnVirtualCurrency,
@@ -60,8 +68,11 @@ namespace LittleBit.Modules.Analytics.EventSystem.Strategy
 
         public void EcommercePurchase(IDataEventEcommerce data)
         {
-            YandexAppMetricaRevenue revenue = new YandexAppMetricaRevenue((decimal)data.Amount, data.Currency);
-            AppMetrica.Instance.ReportRevenue(revenue);
+            if (_executionMode == ExecutionMode.Production)
+            {
+                YandexAppMetricaRevenue revenue = new YandexAppMetricaRevenue((decimal)data.Amount, data.Currency);
+                AppMetrica.Instance.ReportRevenue(revenue);
+            }
         }
     }
 }
