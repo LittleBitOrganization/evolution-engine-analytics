@@ -1,10 +1,20 @@
 ﻿using System.Collections.Generic;
-using LittleBit.Modules.Analytics.EventSystem.Configs;
+using Io.AppMetrica;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventCurrency;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Data;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Events;
 using LittleBitGames.Environment;
 using LittleBitGames.Environment.Events;
+using Unity.Plastic.Newtonsoft.Json;
+using UnityEngine;
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+using Io.AppMetrica.Native.Android;
+#elif (UNITY_IPHONE || UNITY_IOS) && !UNITY_EDITOR
+using Io.AppMetrica.Native.Ios;
+#else
+using Io.AppMetrica.Native.Dummy;
+#endif
 
 namespace LittleBit.Modules.Analytics.EventSystem.Strategy
 {
@@ -23,56 +33,57 @@ namespace LittleBit.Modules.Analytics.EventSystem.Strategy
         
         public void EarnVirtualCurrency(IDataEventCurrency dataEventCurrency)
         {
-            AppMetrica.Instance.ReportEvent(CustomEventNames.EarnVirtualCurrency,
-                new Dictionary<string, object>()
-                {
-                    { "ResourceId", dataEventCurrency.ResourceId },
-                    { "Value", dataEventCurrency.CountResources },
-                    { "ItemType", dataEventCurrency.Type },
-                    { "PlaceId", dataEventCurrency.PlaceId }
-                });
+            AppMetrica.ReportEvent(CustomEventNames.EarnVirtualCurrency, JsonConvert.SerializeObject(new Dictionary<string, object>()
+            {
+                { "ResourceId", dataEventCurrency.ResourceId },
+                { "Value", dataEventCurrency.CountResources },
+                { "ItemType", dataEventCurrency.Type },
+                { "PlaceId", dataEventCurrency.PlaceId }
+            }));
         }
 
         public void SpendVirtualCurrency(IDataEventCurrency dataEventCurrency)
         {
-            AppMetrica.Instance.ReportEvent(CustomEventNames.SpendVirtualCurrency,
-                new Dictionary<string, object>()
-                {
-                    { "ResourceId", dataEventCurrency.ResourceId },
-                    { "Value", dataEventCurrency.CountResources },
-                    { "ItemType", dataEventCurrency.Type },
-                    { "PlaceId", dataEventCurrency.PlaceId }
-                });
+            AppMetrica.ReportEvent(CustomEventNames.SpendVirtualCurrency, JsonConvert.SerializeObject(new Dictionary<string, object>()
+            {
+                { "ResourceId", dataEventCurrency.ResourceId },
+                { "Value", dataEventCurrency.CountResources },
+                { "ItemType", dataEventCurrency.Type },
+                { "PlaceId", dataEventCurrency.PlaceId }
+            }));
         }
 
         public void DesignEvent(DataEventDesign label)
         {
-            AppMetrica.Instance.ReportEvent(label.Label);
+            AppMetrica.ReportEvent(label.Label);
         }
 
         public void AdRevenuePaidEvent(IDataEventAdImpression data)
         {
-            YandexAppMetricaAdRevenue adRevenue = new YandexAppMetricaAdRevenue(data.Value, data.Currency);
-            AppMetrica.Instance.ReportAdRevenue(adRevenue);
+            AppMetrica.ReportAdRevenue(new AdRevenue(data.Value, data.Currency));
         }
         
         public void DesignEventWithParameters(DataEventDesignWithParams designWithParams)
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
+            
             for (int i = 0; i < designWithParams.EventParameters.Length; i++)
             {
                 var parameter = designWithParams.EventParameters[i];
                 parameters.Add(parameter.Name, parameter.ValueString);
             }
-            AppMetrica.Instance.ReportEvent(designWithParams.Label, parameters);
+            
+            AppMetrica.ReportEvent(designWithParams.Label, JsonConvert.SerializeObject(parameters));
         }
-
+        
         public void EcommercePurchase(IDataEventEcommerce data)
         {
             if (_executionMode == ExecutionMode.Production)
             {
-                YandexAppMetricaRevenue revenue = new YandexAppMetricaRevenue((decimal)data.Amount, data.Currency);
-                AppMetrica.Instance.ReportRevenue(revenue);
+                Revenue revenue = new Revenue((long)data.Amount, data.Currency);
+                revenue.ProductID = data.ItemId;
+                
+                AppMetrica.ReportRevenue(revenue);
             }
         }
     }

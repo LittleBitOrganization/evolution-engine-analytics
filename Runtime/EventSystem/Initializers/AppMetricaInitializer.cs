@@ -1,5 +1,7 @@
-﻿using LittleBit.Modules.Analytics.EventSystem.Services;
+﻿using Io.AppMetrica;
+using LittleBit.Modules.Analytics.EventSystem.Services;
 using LittleBitGames.Environment.Events;
+using UnityEngine;
 
 namespace LittleBit.Modules.Analytics.Initializers
 {
@@ -12,9 +14,21 @@ namespace LittleBit.Modules.Analytics.Initializers
             {
                 var apiKey = analyticsConfig.ApiKeyAppMetrica;
 
-                var appMetrica = AppMetrica.Init();
-                appMetrica.SetupMetrica(apiKey, 300);
+                AppMetrica.Activate(new AppMetricaConfig(apiKey) {
+                    FirstActivationAsUpdate = !IsFirstLaunch(),
+                });
             }
+        }
+        
+        private static bool IsFirstLaunch()
+        {
+            if (PlayerPrefs.GetInt("IsFirstLaunch", 0) == 0)
+            {
+                PlayerPrefs.SetInt("IsFirstLaunch", 1);
+                return true;
+            }
+            
+            return false;
         }
     }
 }
