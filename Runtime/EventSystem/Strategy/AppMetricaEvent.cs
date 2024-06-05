@@ -3,9 +3,10 @@ using Io.AppMetrica;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventCurrency;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Data;
 using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Events;
+using LittleBit.Modules.Analytics.EventSystem.Events.EventDesign.Parameters;
 using LittleBitGames.Environment;
 using LittleBitGames.Environment.Events;
-using Unity.Plastic.Newtonsoft.Json;
+using Newtonsoft.Json;
 using UnityEngine;
 
 #if UNITY_ANDROID && !UNITY_EDITOR
@@ -33,10 +34,10 @@ namespace LittleBit.Modules.Analytics.EventSystem.Strategy
         
         public void EarnVirtualCurrency(IDataEventCurrency dataEventCurrency)
         {
-            AppMetrica.ReportEvent(CustomEventNames.EarnVirtualCurrency, JsonConvert.SerializeObject(new Dictionary<string, object>()
+            AppMetrica.ReportEvent(CustomEventNames.EarnVirtualCurrency, JsonConvert.SerializeObject(new Dictionary<string, string>()
             {
                 { "ResourceId", dataEventCurrency.ResourceId },
-                { "Value", dataEventCurrency.CountResources },
+                { "Value", dataEventCurrency.CountResources.ToString() },
                 { "ItemType", dataEventCurrency.Type },
                 { "PlaceId", dataEventCurrency.PlaceId }
             }));
@@ -44,10 +45,10 @@ namespace LittleBit.Modules.Analytics.EventSystem.Strategy
 
         public void SpendVirtualCurrency(IDataEventCurrency dataEventCurrency)
         {
-            AppMetrica.ReportEvent(CustomEventNames.SpendVirtualCurrency, JsonConvert.SerializeObject(new Dictionary<string, object>()
+            AppMetrica.ReportEvent(CustomEventNames.SpendVirtualCurrency, JsonConvert.SerializeObject(new Dictionary<string, string>()
             {
                 { "ResourceId", dataEventCurrency.ResourceId },
-                { "Value", dataEventCurrency.CountResources },
+                { "Value", dataEventCurrency.CountResources.ToString() },
                 { "ItemType", dataEventCurrency.Type },
                 { "PlaceId", dataEventCurrency.PlaceId }
             }));
@@ -65,12 +66,12 @@ namespace LittleBit.Modules.Analytics.EventSystem.Strategy
         
         public void DesignEventWithParameters(DataEventDesignWithParams designWithParams)
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
             
             for (int i = 0; i < designWithParams.EventParameters.Length; i++)
             {
                 var parameter = designWithParams.EventParameters[i];
-                parameters.Add(parameter.Name, parameter.ValueString);
+                parameters.Add(parameter.Name, parameter.ConvertValueToString());
             }
             
             AppMetrica.ReportEvent(designWithParams.Label, JsonConvert.SerializeObject(parameters));
