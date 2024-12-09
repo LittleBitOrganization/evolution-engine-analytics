@@ -17,7 +17,7 @@ namespace LittleBit.Modules.Analytics.Initializers
 #if WAZZITUDE
             (new WazzitudeInitializer()).Start();
 #endif
-            (new AppsFlyerInitializer()).Start();
+            (new AppsFlyerInitializer(this)).Start();
             (new AppMetricaInitializer()).Start();
         }
     }
