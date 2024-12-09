@@ -34,10 +34,11 @@
 Это делается удалением папки *ExternalDependencyManager* в папке *Assets*.
 
 4. #### Добавьте следующие зависимости в свой manifest.json file *(он находится в папке Package)*.
-
+  На данный момент эта версия требует обязательной интеграции аппметрики версии 6.1.0 
 ```json 
  "dependencies": {
-  "com.littlebitgames.environmentcore": "https://github.com/LittleBitOrganization/evolution-engine-environment-core-module.git#",
+"io.appmetrica.analytics": "https://github.com/appmetrica/appmetrica-unity-plugin.git#v6.1.0",
+"com.littlebitgames.environmentcore": "https://github.com/LittleBitOrganization/evolution-engine-environment-core-module.git#",
   "com.gameanalytics.sdk": "7.3.20",
   "com.google.external-dependency-manager": "https://github.com/LittleBitOrganization/evolution-engine-google-version-handler.git#1.2.171",
   "com.google.firebase.app": "file:../GooglePackages/com.google.firebase.app-10.1.0.tgz",
