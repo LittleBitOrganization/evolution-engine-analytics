@@ -1,4 +1,5 @@
-﻿using AppsFlyerConnector;
+﻿using System;
+using AppsFlyerConnector;
 using AppsFlyerSDK;
 using LittleBit.Modules.Analytics.EventSystem.Services;
 using LittleBitGames.Environment;
@@ -9,11 +10,11 @@ namespace LittleBit.Modules.Analytics.Initializers
 {
     public class AppsFlyerInitializer:IInitializer
     {
-        private readonly AnalyticsInitializer _analyticsInitializer;
+        private readonly Action<bool> _onPurchaseConnectorInit;
 
-        public AppsFlyerInitializer(AnalyticsInitializer analyticsInitializer)
+        public AppsFlyerInitializer(Action<bool> onPurchaseConnectorInit)
         {
-            _analyticsInitializer = analyticsInitializer;
+            _onPurchaseConnectorInit = onPurchaseConnectorInit;
         }
         
         public void Start()
@@ -29,14 +30,7 @@ namespace LittleBit.Modules.Analytics.Initializers
                 AppsFlyer.enableTCFDataCollection(true);
                 AppsFlyer.initSDK(devKey, appID);
                 
-                AppsFlyerPurchaseConnector.init(_analyticsInitializer, AppsFlyerConnector.Store.GOOGLE);
-                AppsFlyerPurchaseConnector.setIsSandbox(analyticsConfig.Mode == ExecutionMode.Debug);
-                AppsFlyerPurchaseConnector.setAutoLogPurchaseRevenue(
-                    AppsFlyerAutoLogPurchaseRevenueOptions.AppsFlyerAutoLogPurchaseRevenueOptionsAutoRenewableSubscriptions |
-                    AppsFlyerAutoLogPurchaseRevenueOptions.AppsFlyerAutoLogPurchaseRevenueOptionsInAppPurchases
-                );
-                AppsFlyerPurchaseConnector.build();
-                AppsFlyerPurchaseConnector.startObservingTransactions();
+                _onPurchaseConnectorInit?.Invoke(analyticsConfig.Mode == ExecutionMode.Debug);
                 
                 AppsFlyer.startSDK();
             }
