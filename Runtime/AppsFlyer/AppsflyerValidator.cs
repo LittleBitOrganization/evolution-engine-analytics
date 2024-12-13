@@ -41,7 +41,7 @@ namespace AppsFlyerConnector
 
         private IEnumerator StartTimeoutError()
         {
-            yield return new WaitForSeconds(_timeoutError);
+            yield return new WaitForSecondsRealtime(_timeoutError);
             _taskCompletionSource.SetResult(false);
         }
 
