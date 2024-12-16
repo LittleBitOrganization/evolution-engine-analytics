@@ -24,7 +24,6 @@ namespace AppsFlyerConnector
         {
             _coroutine = StartCoroutine(StartTimeoutError());
             
-            _taskCompletionSource.SetCanceled();
             try
             {
                 var result = await _taskCompletionSource.Task;
@@ -42,7 +41,7 @@ namespace AppsFlyerConnector
         private IEnumerator StartTimeoutError()
         {
             yield return new WaitForSecondsRealtime(_timeoutError);
-            _taskCompletionSource.SetResult(false);
+            _taskCompletionSource?.SetResult(false);
         }
 
         public void Reset()
