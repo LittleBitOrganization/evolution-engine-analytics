@@ -30,10 +30,15 @@ namespace AppsFlyerConnector
                 StopCoroutine(_coroutine);
                 _coroutine = null;
                 _taskCompletionSource = null;
+
+                Debug.LogError("in try result  " + result);
+                
                 return result;
             }
             catch (Exception e)
             {
+                Debug.LogError("catch result  " + e.ToString());
+                
                 return false;
             }
         }
@@ -41,6 +46,9 @@ namespace AppsFlyerConnector
         private IEnumerator StartTimeoutError()
         {
             yield return new WaitForSecondsRealtime(_timeoutError);
+
+            Debug.LogError("Timeout");
+            
             _taskCompletionSource?.SetResult(false);
         }
 
@@ -57,12 +65,16 @@ namespace AppsFlyerConnector
         
         public void didReceivePurchaseRevenueValidationInfo(string validationInfo)
         {
+            Debug.LogError("PurchaseRevenueValidationInfo  " + validationInfo);
+            
             _taskCompletionSource.SetResult(true);
             OnSuccessValidate?.Invoke(validationInfo);
         }
 
         public void didReceivePurchaseRevenueError(string error)
         {
+            Debug.LogError("PurchaseRevenueError  " + error);
+            
             _taskCompletionSource.SetResult(false);
             OnFailureValidate?.Invoke(error);
         }

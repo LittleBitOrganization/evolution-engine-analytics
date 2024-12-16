@@ -33,8 +33,10 @@ namespace LittleBit.Modules.Analytics.Initializers
                     AppsFlyerAutoLogPurchaseRevenueOptions.AppsFlyerAutoLogPurchaseRevenueOptionsAutoRenewableSubscriptions |
                     AppsFlyerAutoLogPurchaseRevenueOptions.AppsFlyerAutoLogPurchaseRevenueOptionsInAppPurchases
                 );
+                AppsFlyerPurchaseConnector.setPurchaseRevenueValidationListeners(true);
                 AppsFlyerPurchaseConnector.build();
                 AppsFlyerPurchaseConnector.startObservingTransactions();
+                
             })).Start();
         }
     }
