@@ -19,25 +19,8 @@ namespace LittleBit.Modules.Analytics.Initializers
 #if WAZZITUDE
             (new WazzitudeInitializer()).Start();
 #endif
-            
+            new AppsFlyerInitializer(null).Start();
             (new AppMetricaInitializer()).Start();
-        }
-
-        public void InitAppsflyerWithValidator(AppsflyerValidator appsflyerValidator)
-        {
-            (new AppsFlyerInitializer((isSandbox) =>
-            {
-                AppsFlyerPurchaseConnector.init(appsflyerValidator, AppsFlyerConnector.Store.GOOGLE);
-                AppsFlyerPurchaseConnector.setIsSandbox(isSandbox);
-                AppsFlyerPurchaseConnector.setAutoLogPurchaseRevenue(
-                    AppsFlyerAutoLogPurchaseRevenueOptions.AppsFlyerAutoLogPurchaseRevenueOptionsAutoRenewableSubscriptions |
-                    AppsFlyerAutoLogPurchaseRevenueOptions.AppsFlyerAutoLogPurchaseRevenueOptionsInAppPurchases
-                );
-                AppsFlyerPurchaseConnector.setPurchaseRevenueValidationListeners(true);
-                AppsFlyerPurchaseConnector.build();
-                AppsFlyerPurchaseConnector.startObservingTransactions();
-                
-            })).Start();
         }
     }
 }
