@@ -36,7 +36,7 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
 #if WAZZITUDE
                 new WazzitudeSystemEvent(WazzitudeAnalytics.Instance),
 #endif
-                new AppsFlyerEvent(_config.Mode),
+                new AppsFlyerEvent(_config.Mode, _config.AppsFlyerIapValidationKey),
                 new AppMetricaEvent(_config.Mode)
             };
 
@@ -55,7 +55,7 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
 #if WAZZITUDE
                 new WazzitudeSystemEvent(WazzitudeAnalytics.Instance),
 #endif
-                new AppsFlyerEvent(_config.Mode),
+                new AppsFlyerEvent(_config.Mode, _config.AppsFlyerIapValidationKey),
                 new AppMetricaEvent(_config.Mode),
             };
 
@@ -66,7 +66,7 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
 #if WAZZITUDE
                 new WazzitudeSystemEvent(WazzitudeAnalytics.Instance),
 #endif
-                new AppsFlyerEvent(_config.Mode),
+                new AppsFlyerEvent(_config.Mode, _config.AppsFlyerIapValidationKey),
                 new AppMetricaEvent(_config.Mode),
             };
 
@@ -77,7 +77,7 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
 #if WAZZITUDE
                 new WazzitudeSystemEvent(WazzitudeAnalytics.Instance),
 #endif
-                new AppsFlyerEvent(_config.Mode),
+                new AppsFlyerEvent(_config.Mode, _config.AppsFlyerIapValidationKey),
                 new AppMetricaEvent(_config.Mode),
             };
         }
