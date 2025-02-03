@@ -32,9 +32,6 @@ namespace LittleBit.Modules.Analytics.EventSystem.Configs
         [SerializeField, ShowIf(nameof(IsEnableAmplitude))] private string _amplitude_api_key;
         
         [SerializeField, ShowIf(nameof(IsEnableWazzitude))] private string _wazzitude_url;
-        
-        [SerializeField, ShowIf(nameof(IsEnableAppsFlyer))] private string _appsflyer_dev_key;
-        [SerializeField, ShowIf(nameof(IsEnableAppsFlyer))] private string _appsflyer_iap_validation_key;
 
         [field: SerializeField, ShowIf(nameof(IsEnableAppMetrica))] public string ApiKeyAppMetrica { get; private set; }
         
@@ -50,11 +47,7 @@ namespace LittleBit.Modules.Analytics.EventSystem.Configs
         public ExecutionMode Mode => mode;
         public string WazzitudeUrl => _wazzitude_url;
         public string AmplitudeApiKey => _amplitude_api_key;
-        public string AppsFlyerDevKey => _appsflyer_dev_key;
-        public string AppsFlyerIapValidationKey => _appsflyer_iap_validation_key;
         
-        
-
         [field: SerializeField] public int RemoteConfigCacheExpiration { get; private set; }
         [field: SerializeField] public FallbackConfig FallbackRemoteConfig { get; private set; }
 
@@ -65,7 +58,6 @@ namespace LittleBit.Modules.Analytics.EventSystem.Configs
         private bool IsEnableAmplitude => IsEnableService(EventsServiceType.Amplitude);
         private bool IsEnableGa => IsEnableService(EventsServiceType.GA);
         private bool IsEnableFireBase => IsEnableService(EventsServiceType.Firebase);
-        private bool IsEnableAppsFlyer => IsEnableService(EventsServiceType.AppsFlyer);
 
         private bool IsEnableAppMetrica => IsEnableService(EventsServiceType.AppMetrica);
     }
