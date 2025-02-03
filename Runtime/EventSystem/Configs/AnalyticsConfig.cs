@@ -32,13 +32,8 @@ namespace LittleBit.Modules.Analytics.EventSystem.Configs
         [SerializeField, ShowIf(nameof(IsEnableAmplitude))] private string _amplitude_api_key;
         
         [SerializeField, ShowIf(nameof(IsEnableWazzitude))] private string _wazzitude_url;
-
-        [field: SerializeField, ShowIf(nameof(IsEnableAppMetrica))] public string ApiKeyAppMetrica { get; private set; }
         
-#if UNITY_IOS        
-        [SerializeField, ShowIf(nameof(IsEnableAppsFlyer))] private string _appsflyer_ios_app_ID;
-        public string AppsFlyerAppID => _appsflyer_ios_app_ID;
-#endif
+        [field: SerializeField, ShowIf(nameof(IsEnableAppMetrica))] public string ApiKeyAppMetrica { get; private set; }
 
         public EventsServiceType EnabledServices => _eventMask.EnabledServices;
 
