@@ -1,6 +1,4 @@
 ﻿using System;
-using AppsFlyerConnector;
-using LittleBitGames.Environment;
 using UnityEngine;
 
 namespace LittleBit.Modules.Analytics.Initializers
@@ -19,7 +17,6 @@ namespace LittleBit.Modules.Analytics.Initializers
 #if WAZZITUDE
             (new WazzitudeInitializer()).Start();
 #endif
-            new AppsFlyerInitializer(null).Start();
             (new AppMetricaInitializer()).Start();
         }
     }
