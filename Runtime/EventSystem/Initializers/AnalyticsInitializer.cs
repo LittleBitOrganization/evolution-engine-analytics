@@ -1,4 +1,6 @@
 ﻿using System;
+using LittleBit.Modules.Analytics.EventSystem.Services;
+using LittleBitGames.Environment.Events;
 using UnityEngine;
 
 namespace LittleBit.Modules.Analytics.Initializers
@@ -13,11 +15,14 @@ namespace LittleBit.Modules.Analytics.Initializers
             firebaseInitializer.OnFirebaseInit += b => OnFirebaseInit?.Invoke(b);
             firebaseInitializer.Start();
             (new GameanalyticsInitializer()).Start();
-            (new AmplitudeInitializer()).Start();
-#if WAZZITUDE
-            (new WazzitudeInitializer()).Start();
-#endif
             (new AppMetricaInitializer()).Start();
+            
+            var analyticsConfig = new AnalyticsConfigFactory().Create();
+
+            foreach (var analyticsServiceConfig in analyticsConfig.AdditionalServiceConfig)
+            {
+                analyticsServiceConfig.CreateInitializer()?.Start();
+            }
         }
     }
 }

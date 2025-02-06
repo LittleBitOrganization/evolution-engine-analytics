@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using LittleBitGames.Environment;
 using LittleBitGames.Environment.Events;
 using NaughtyAttributes;
@@ -28,29 +29,22 @@ namespace LittleBit.Modules.Analytics.EventSystem.Configs
 
         [SerializeField] private EventMask _eventMask;
         
-
-        [SerializeField, ShowIf(nameof(IsEnableAmplitude))] private string _amplitude_api_key;
-        
-        [SerializeField, ShowIf(nameof(IsEnableWazzitude))] private string _wazzitude_url;
         
         [field: SerializeField, ShowIf(nameof(IsEnableAppMetrica))] public string ApiKeyAppMetrica { get; private set; }
+        [field: SerializeField] public List<AnalyticsServiceConfig> AdditionalServiceConfig { get; private set; }
 
         public EventsServiceType EnabledServices => _eventMask.EnabledServices;
 
         public EventMask EventMask => _eventMask;
         
         public ExecutionMode Mode => mode;
-        public string WazzitudeUrl => _wazzitude_url;
-        public string AmplitudeApiKey => _amplitude_api_key;
         
         [field: SerializeField] public int RemoteConfigCacheExpiration { get; private set; }
         [field: SerializeField] public FallbackConfig FallbackRemoteConfig { get; private set; }
 
         internal bool IsEnableService(EventsServiceType type) => EnabledServices.IsEnableService(type);
         
-        private bool IsEnableWazzitude => IsEnableService(EventsServiceType.Wazzitude);
         private bool IsEnableAdjust => IsEnableService(EventsServiceType.Adjust);
-        private bool IsEnableAmplitude => IsEnableService(EventsServiceType.Amplitude);
         private bool IsEnableGa => IsEnableService(EventsServiceType.GA);
         private bool IsEnableFireBase => IsEnableService(EventsServiceType.Firebase);
 

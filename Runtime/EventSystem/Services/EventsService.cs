@@ -23,59 +23,58 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
         private readonly List<IDesignEventWithParameters> _designEventsWithParameters;
         private readonly List<IEcommerceEvent<IDataEventEcommerce>> _ecommerceEvents;
         private readonly AnalyticsConfig _config;
+        private readonly List<IEventService> _abstractServices;
 
         public EventsService()
         {
             _config = new AnalyticsConfigFactory().Create();
+            
+            _abstractServices = _config.AdditionalServiceConfig.Select(serviceConfig => serviceConfig.CreateEventService())
+                .Where(serviceConfig => serviceConfig != null).ToList();
 
             _analyticsAdImpression = new List<IAdImpressionEvent<IDataEventAdImpression>>()
             {
                 new FireBaseEvent(),
                 new GameEvent(_config.Mode),
-                new AmplitudeEvent(_config.Mode),
-#if WAZZITUDE
-                new WazzitudeSystemEvent(WazzitudeAnalytics.Instance),
-#endif
-                new AppMetricaEvent(_config.Mode)
+                new AppMetricaEvent(_config.Mode),
             };
 
+            _analyticsAdImpression.AddRange(_abstractServices);
+            
             _analyticsCurrencies = new List<ICurrencyEvent<IDataEventCurrency>>()
             {
                 new GameEvent(_config.Mode),
                 new FireBaseEvent(),
-                new AppMetricaEvent(_config.Mode),
+                new AppMetricaEvent(_config.Mode)
             };
+            
+            _analyticsCurrencies.AddRange(_abstractServices);
+            
             
             _designEvents = new List<IDesignEvent<IDataEventDesign>>()
             {
                 new GameEvent(_config.Mode),
                 new FireBaseEvent(),
-                new AmplitudeEvent(_config.Mode),
-#if WAZZITUDE
-                new WazzitudeSystemEvent(WazzitudeAnalytics.Instance),
-#endif
-                new AppMetricaEvent(_config.Mode),
+                new AppMetricaEvent(_config.Mode)
             };
+            
+            _designEvents.AddRange(_abstractServices);
 
             _designEventsWithParameters = new List<IDesignEventWithParameters>()
             {
                 new FireBaseEvent(),
-                new AmplitudeEvent(_config.Mode),
-#if WAZZITUDE
-                new WazzitudeSystemEvent(WazzitudeAnalytics.Instance),
-#endif
-                new AppMetricaEvent(_config.Mode),
+                new AppMetricaEvent(_config.Mode)
             };
-
+            
+            _designEventsWithParameters.AddRange(_abstractServices);
+            
             _ecommerceEvents = new List<IEcommerceEvent<IDataEventEcommerce>>()
             {
                 new GameEvent(_config.Mode),
-                new AmplitudeEvent(_config.Mode),
-#if WAZZITUDE
-                new WazzitudeSystemEvent(WazzitudeAnalytics.Instance),
-#endif
-                new AppMetricaEvent(_config.Mode),
+                new AppMetricaEvent(_config.Mode)
             };
+            
+            _ecommerceEvents.AddRange(_abstractServices);
         }
 
         //TODO отсутсвует маска в конфиге для фильтрации
@@ -149,10 +148,6 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
 
             if (mask.HasFlag(EventsServiceType.Firebase) == false) clone.RemoveAll(s => s is FireBaseEvent);
             if (mask.HasFlag(EventsServiceType.GA) == false) clone.RemoveAll(s => s is GameEvent);
-            if (mask.HasFlag(EventsServiceType.Amplitude) == false) clone.RemoveAll(s => s is AmplitudeEvent);
-#if WAZZITUDE
-            if (mask.HasFlag(EventsServiceType.Wazzitude) == false) clone.RemoveAll(s => s is WazzitudeSystemEvent);
-#endif
 
             return clone;
         }
