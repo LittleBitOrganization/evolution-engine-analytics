@@ -1,12 +1,12 @@
 {
   "name": "com.littlebitgames.analytics",
   "displayName": "Analytics module",
-  "version": "4.1.0",
+  "version": "4.1.4",
   "unity": "2021.1",
   "unityRelease": "6f1",
   "category": "Module",
   "author": {
     "name": "LittleBitGames"
   },
-  "description": "Provides wrapper for Game Analytics, Firebase, Appsflyer, Amplitude, Wazzitude, AppMetrica"
+  "description": "Provides wrapper for Game Analytics, Firebase, Appsflyer, Amplitude, Wazzitude"
 }

@@ -29,8 +29,6 @@ namespace LittleBit.Modules.Analytics.EventSystem.Configs
 
         [SerializeField] private EventMask _eventMask;
         
-        
-        [field: SerializeField, ShowIf(nameof(IsEnableAppMetrica))] public string ApiKeyAppMetrica { get; private set; }
         [field: SerializeField] public List<AnalyticsServiceConfig> AdditionalServiceConfig { get; private set; }
 
         public EventsServiceType EnabledServices => _eventMask.EnabledServices;
@@ -47,8 +45,6 @@ namespace LittleBit.Modules.Analytics.EventSystem.Configs
         private bool IsEnableAdjust => IsEnableService(EventsServiceType.Adjust);
         private bool IsEnableGa => IsEnableService(EventsServiceType.GA);
         private bool IsEnableFireBase => IsEnableService(EventsServiceType.Firebase);
-
-        private bool IsEnableAppMetrica => IsEnableService(EventsServiceType.AppMetrica);
     }
     
 

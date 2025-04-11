@@ -36,7 +36,6 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
             {
                 new FireBaseEvent(),
                 new GameEvent(_config.Mode),
-                new AppMetricaEvent(_config.Mode),
             };
 
             _analyticsAdImpression.AddRange(_abstractServices);
@@ -45,7 +44,6 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
             {
                 new GameEvent(_config.Mode),
                 new FireBaseEvent(),
-                new AppMetricaEvent(_config.Mode)
             };
             
             _analyticsCurrencies.AddRange(_abstractServices);
@@ -55,7 +53,6 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
             {
                 new GameEvent(_config.Mode),
                 new FireBaseEvent(),
-                new AppMetricaEvent(_config.Mode)
             };
             
             _designEvents.AddRange(_abstractServices);
@@ -63,7 +60,6 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
             _designEventsWithParameters = new List<IDesignEventWithParameters>()
             {
                 new FireBaseEvent(),
-                new AppMetricaEvent(_config.Mode)
             };
             
             _designEventsWithParameters.AddRange(_abstractServices);
@@ -71,7 +67,6 @@ namespace LittleBit.Modules.Analytics.EventSystem.Services
             _ecommerceEvents = new List<IEcommerceEvent<IDataEventEcommerce>>()
             {
                 new GameEvent(_config.Mode),
-                new AppMetricaEvent(_config.Mode)
             };
             
             _ecommerceEvents.AddRange(_abstractServices);

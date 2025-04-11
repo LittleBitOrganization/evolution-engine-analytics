@@ -15,8 +15,7 @@ namespace LittleBit.Modules.Analytics.Initializers
             firebaseInitializer.OnFirebaseInit += b => OnFirebaseInit?.Invoke(b);
             firebaseInitializer.Start();
             (new GameanalyticsInitializer()).Start();
-            (new AppMetricaInitializer()).Start();
-            
+
             var analyticsConfig = new AnalyticsConfigFactory().Create();
 
             foreach (var analyticsServiceConfig in analyticsConfig.AdditionalServiceConfig)
